@@ -1,7 +1,53 @@
-export function currencyConverter(from: number, country: string): string {
-  return from.toLocaleString(country, {
+export async function currencyConverter(
+  money: number,
+  from: string,
+  to: string,
+): Promise<string> {
+  try {
+    const currencyLocales: Record<string, string> = {
+      USD: "en-US",
+      EUR: "fr-FR",
+      GBP: "en-GB",
+      JPY: "ja-JP",
+      CAD: "en-CA",
+      AUD: "en-AU",
+      INR: "en-IN",
+      MXN: "es-MX",
+    };
+    const response = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+    if (!response.ok) {
+      throw new Error("API network response failed");
+    }
+    const data = await response.json();
+    const conversionRate = data.rates[to];
+    const convertedAmount = money * conversionRate;
+    return convertedAmount.toLocaleString(currencyLocales[to], {
+      style: "currency",
+      currency: to,
+    });
+  } catch (error) {
+    console.error("Error fetching currency: ", error);
+    throw error;
+  }
+}
+
+export function changeCurrencySymbol(
+  money: number,
+  from: string,
+): string {
+  const currencyLocales: Record<string, string> = {
+    USD: "en-US",
+    EUR: "fr-FR",
+    GBP: "en-GB",
+    JPY: "ja-JP",
+    CAD: "en-CA",
+    AUD: "en-AU",
+    INR: "en-IN",
+    MXN: "es-MX",
+  };
+  return money.toLocaleString(currencyLocales[from], {
     style: "currency",
-    currency: "USD",
+    currency: from,
   });
 }
 
@@ -22,7 +68,7 @@ export function projectedValueCalc(
   }
 
   const fullInterest = currentBalance - fullContribution;
-  const balance = fullContribution + fullInterest;
+  const projectedValue = (fullContribution + fullInterest);
 
-  return [balance, fullContribution, fullInterest];
+  return [projectedValue, fullContribution, fullInterest];
 }

@@ -11,7 +11,7 @@ const TopNav = () => {
   return (
     <>
       <div
-        className={`z-0 bg-blue-200 fixed top-0 left-0 w-full h-auto flex flex-start items-center py-5 pl-3`}
+        className={`z-60 bg-blue-200 fixed top-0 left-0 w-full h-auto flex flex-start items-center py-5 pl-3`}
       >
         <button onClick={() => handleClick()}>
           <span className="material-symbols-outlined text-3xl!">menu</span>

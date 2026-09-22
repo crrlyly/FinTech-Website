@@ -10,7 +10,7 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
     <div
       className={`
         ${active ? "fixed" : "hidden"}
-        z-10 w-70 h-dvh bg-green-400 top-0 left-0 flex flex-col
+        z-70 w-70 h-dvh bg-green-400 top-0 left-0 flex flex-col
         `}
     >
       <div className={`relative w-full h-auto bg-blue-300 py-5 pl-3`}>
