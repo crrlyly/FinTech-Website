@@ -1,3 +1,32 @@
+type Transaction = {
+  id: number;
+  type: "income" | "expense";
+  amount: number;
+  category: string;
+  date: string;
+  description: string;
+};
+
+export function getTotalBalance(transactionList: Transaction[]): number{
+  // add income with negative expenses
+  return 0;
+}
+
+export function getMonthlyIncome(transactionList: Transaction[]): number{
+  // add all the income type transactions
+  return 0;
+}
+
+export function getMonthlyExpenses(transactionList: Transaction[]): number{
+  // add all the expense type transactions
+  return 0;
+}
+
+export function getNumberOfTransactions(transactionList: Transaction[]): number{
+  // return length of transaction list
+  return 0;
+}
+
 export async function currencyConverter(
   money: number,
   from: string,
