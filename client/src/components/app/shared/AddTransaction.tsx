@@ -17,7 +17,7 @@ const AddTransaction = ({ active, handleClick }: AddTransactionProps) => {
   const [formData, setFormData] = useState<FormData>({
     type: "expense",
     amount: "",
-    category: "",
+    category: "groceries",
     date: "",
     description: "",
   });

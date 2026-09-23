@@ -33,7 +33,7 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
         <NavButton icon="dashboard" header="dashboard"></NavButton>
         <NavButton
           icon="arrows_left_right_circle"
-          header="transaction"
+          header="transactions"
         ></NavButton>
         <NavButton icon="account_balance_wallet" header="budgets"></NavButton>
         <NavButton icon="savings" header="savings goals"></NavButton>

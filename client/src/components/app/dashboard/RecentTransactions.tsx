@@ -8,7 +8,7 @@ const RecentTransactions = () => {
     >
       <div className={`w-full h-auto bg-blue-200 flex flex-col`}>
         <div className={`flex justify-between p-5`}>
-          Recent Transactions <Link to="/">View all</Link>
+          Recent Transactions <Link to="/transactions">View all</Link>
         </div>
         <div
           className={`w-full min-h-50 bg-pink-200 flex flex-col items-center gap-5 p-5`}

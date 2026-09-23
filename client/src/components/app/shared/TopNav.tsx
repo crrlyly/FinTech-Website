@@ -1,7 +1,9 @@
 import { useState } from "react";
 import NavBar from "../navbar/NavBar";
 
-const TopNav = () => {
+
+
+const TopNav = ({ title }: { title: string }) => {
   const [active, setActive] = useState<boolean>(false);
 
   function handleClick() {
@@ -16,7 +18,7 @@ const TopNav = () => {
         <button onClick={() => handleClick()}>
           <span className="material-symbols-outlined text-3xl!">menu</span>
         </button>
-        <span className="text-3xl ml-3 font-semibold">Dashboard</span>
+        <span className="text-3xl ml-3 font-semibold">{title}</span>
       </div>
       <NavBar active={active} setActive={handleClick}></NavBar>
     </>

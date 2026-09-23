@@ -1,4 +1,4 @@
-import TopNav from "../../components/app/dashboard/TopNav";
+import TopNav from "../../components/app/shared/TopNav";
 import Header from "../../components/app/dashboard/Header";
 import Statistics from "../../components/app/dashboard/Statistics";
 import SpendingGraph from "../../components/app/dashboard/SpendingGraph";
@@ -9,7 +9,7 @@ import SpendingGraph from "../../components/app/dashboard/SpendingGraph";
 const Dashboard = () => {
   return (
     <div className={`w-full min-h-dvh pt-20 relative`}>
-      <TopNav></TopNav>
+      <TopNav title="Dashboard"></TopNav>
       <Header></Header>
       <Statistics></Statistics>
       <SpendingGraph></SpendingGraph>

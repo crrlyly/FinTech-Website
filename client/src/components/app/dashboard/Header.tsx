@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AddTransaction from "./AddTransaction";
+import AddTransaction from "../shared/AddTransaction";
 
 const Header = () => {
   const [active, setActive] = useState<boolean>(false);
