@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`w-full h-auto bg-yellow-200 relative flex flex-col px-3 py-5 z-20`}
+        className={`w-full h-auto bg-yellow-200 relative flex flex-col p-5 z-20`}
       >
         <span>Welcome back. Here's your financial overview.</span>
         <button

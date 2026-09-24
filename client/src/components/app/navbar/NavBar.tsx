@@ -1,11 +1,16 @@
 import NavButton from "./NavButton";
 
-type NavButtonProps = {
+export type NavButtonProps = {
   setActive: () => void;
   active: boolean;
 };
 
 const NavBar = ({ setActive, active }: NavButtonProps) => {
+  const navStates = {
+    setActive: setActive,
+    active: active,
+  };
+
   return (
     <div
       className={`
@@ -30,15 +35,32 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
       <div
         className={`w-full h-[80%] bg-yellow-200 flex flex-col gap-2 pt-5 flex-1`}
       >
-        <NavButton icon="dashboard" header="dashboard"></NavButton>
         <NavButton
+          nav={navStates}
+          icon="dashboard"
+          header="dashboard"
+        ></NavButton>
+        <NavButton
+          nav={navStates}
           icon="arrows_left_right_circle"
           header="transactions"
         ></NavButton>
-        <NavButton icon="account_balance_wallet" header="budgets"></NavButton>
-        <NavButton icon="savings" header="savings goals"></NavButton>
-        <NavButton icon="analytics" header="analytics"></NavButton>
-        <NavButton icon="settings" header="settings"></NavButton>
+        <NavButton
+          nav={navStates}
+          icon="account_balance_wallet"
+          header="budgets"
+        ></NavButton>
+        <NavButton nav={navStates} icon="savings" header="savings"></NavButton>
+        <NavButton
+          nav={navStates}
+          icon="analytics"
+          header="analytics"
+        ></NavButton>
+        <NavButton
+          nav={navStates}
+          icon="settings"
+          header="settings"
+        ></NavButton>
       </div>
       <div className={`bg-pink-200 w-full h-30`}>
         <div
@@ -54,7 +76,7 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
             <span>carlyfrances118@gmail.com</span>
           </div>
         </div>
-        <NavButton icon="logout" header="sign out"></NavButton>
+        <NavButton nav={navStates} icon="logout" header="sign out"></NavButton>
       </div>
     </div>
   );
