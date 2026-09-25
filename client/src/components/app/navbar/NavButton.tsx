@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { NavButtonProps } from "./NavBar";
+import { logout } from "../../../services/authApi";
 
 type LinkProps = {
   icon: string;
@@ -7,11 +8,28 @@ type LinkProps = {
   nav: NavButtonProps;
 };
 
-const NavButton = ({ icon, header, nav}: LinkProps) => {
+const NavButton = ({ icon, header, nav }: LinkProps) => {
+  const navigate = useNavigate();
+
+  async function handleClickLogout(e: React.MouseEvent<HTMLAnchorElement>) {
+    nav.setActive();
+
+    if (header === "sign out") {
+      e.preventDefault();
+      try {
+        const res = await logout();
+        console.log("logout successful", res);
+        navigate("/", { replace: true });
+      } catch (error) {
+        console.error("Unable to log out:", error);
+      }
+    }
+  }
+
   return (
     <Link
-      onClick={()=>nav.setActive()}
-      to={`/${header.toLowerCase()}`}
+      onClick={handleClickLogout}
+      to={header === "sign out" ? `/` : `/${header.toLowerCase()}`}
       className={`bg-purple-300 mx-3 rounded-2xl p-2 flex justify-start items-center pl-3`}
     >
       <span className="material-symbols-outlined">{icon}</span>

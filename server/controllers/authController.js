@@ -3,7 +3,7 @@ import db from "../config/db.js";
 
 export async function signup(req, res) {
   try {
-    const { email, password, fullName } = req.body;
+    const { name, email, password } = req.body;
 
     const normalizedEmail = email.trim().toLowerCase();
 
@@ -34,12 +34,12 @@ export async function signup(req, res) {
       `
       INSERT INTO user (
         email,
-        password_hash,
-        fullname
+        password,
+        name
       )
       VALUES (?, ?, ?)
       `,
-      [normalizedEmail, passwordHash, fullName.toLowerCase()],
+      [normalizedEmail, passwordHash, name.toLowerCase()],
     );
 
     req.session.regenerate((error) => {
@@ -55,7 +55,7 @@ export async function signup(req, res) {
         user: {
           id: result.insertId,
           email: normalizedEmail,
-          fullName
+          name: name,
         },
       });
     });
@@ -83,7 +83,7 @@ export async function login(req, res) {
 
     const [result] = await db.query(
       `
-      SELECT id, password_hash
+      SELECT id, password
       from user
       where email = ?
       LIMIT 1
@@ -99,7 +99,7 @@ export async function login(req, res) {
       });
     }
 
-    const passwordMatches = await argon2.verify(user.password_hash, password);
+    const passwordMatches = await argon2.verify(user.password, password);
 
     if (!passwordMatches) {
       return res.status(401).json({

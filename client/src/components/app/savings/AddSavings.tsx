@@ -12,9 +12,16 @@ type AddSavingsProps = {
   handleClick: () => void;
 };
 
-// {
+// props: {
 //     active:
 //     handleCLick
+// }
+
+// props:{
+//     otherThing: {
+//         eat: 
+//         sfg:
+//     }
 // }
 
 const AddSavings = ({ active, handleClick }: AddSavingsProps) => {
