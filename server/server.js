@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import session from "express-session";
 
 import authRoutes from "./routes/authRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 
 dotenv.config({
   path: new URL("./.env", import.meta.url),
@@ -40,6 +41,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
+app.use("/api/transaction", transactionRoutes);
 
 app.get("/api/test-session", (req, res) => {
   if (!req.session.visits) {
