@@ -69,13 +69,6 @@ export async function signup(req, res) {
 }
 
 export async function login(req, res) {
-  // 1. Get body of request
-  // 2. Find the row in database based on email
-  // 3. unhash the database password
-  // 4. compare the password
-  // 5. If both are the same then log in and create session
-  // 6. Else, display error message
-
   try {
     const { email, password } = req.body;
 

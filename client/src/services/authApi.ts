@@ -1,19 +1,23 @@
 import type { SignupCardFormDataProps } from "../components/home/signup/SignupCard.tsx";
 import type { LoginFormDataProps } from "../components/home/login/LoginCard.tsx";
 
-const API_URL = "http://localhost:5000/api/auth/";
+const API_URL = "http://localhost:5000/api/auth";
 
 export interface User {
   id: number;
   name: string;
   email: string;
-  password: string;
   created_on: string;
   updated_on?: string;
 }
 
+export interface AuthResponse {
+  message: string;
+  user: User;
+}
+
 export async function signUp(formData: SignupCardFormDataProps) {
-  const res = await fetch(`${API_URL}signup`, {
+  const res = await fetch(`${API_URL}/signup`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify(formData),
@@ -31,8 +35,10 @@ export async function signUp(formData: SignupCardFormDataProps) {
   return data;
 }
 
-export async function login(formData: LoginFormDataProps) {
-  const res = await fetch(`${API_URL}login`, {
+export async function login(
+  formData: LoginFormDataProps,
+): Promise<AuthResponse> {
+  const res = await fetch(`${API_URL}/login`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify(formData),
@@ -51,13 +57,24 @@ export async function login(formData: LoginFormDataProps) {
 }
 
 export async function logout() {
-  const res = await fetch(`${API_URL}logout`, {
+  const res = await fetch(`${API_URL}/logout`, {
     method: "POST",
     credentials: "include",
   });
 
   if (!res.ok) {
     throw new Error("Logout failed");
+  }
+
+  return res.json();
+}
+
+export async function getCurrentUser() {
+  const res = await fetch(`${API_URL}/currentUser`, {
+    credentials: "include",
+  });
+  if (!res.ok) {
+    throw new Error("Unable to fetch current user");
   }
 
   return res.json();

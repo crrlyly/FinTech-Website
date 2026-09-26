@@ -57,3 +57,11 @@ export async function addTransaction(req, res) {
     });
   }
 }
+
+export async function updateTransaction(req, res){
+
+}
+
+export async function deleteTransaction(req, res){
+  
+}

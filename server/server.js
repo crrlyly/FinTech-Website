@@ -5,6 +5,8 @@ import session from "express-session";
 
 import authRoutes from "./routes/authRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
+import budgetRoutes from "./routes/budgetRoutes.js";
+import goalRoutes from "./routes/goalRoutes.js";
 
 dotenv.config({
   path: new URL("./.env", import.meta.url),
@@ -42,6 +44,8 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api/transaction", transactionRoutes);
+app.use("/api/budget", budgetRoutes);
+app.use("/api/goal", goalRoutes);
 
 app.get("/api/test-session", (req, res) => {
   if (!req.session.visits) {
