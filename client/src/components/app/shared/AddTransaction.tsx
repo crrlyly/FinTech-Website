@@ -1,20 +1,13 @@
 import { useState } from "react";
+import type { TransactionFormData } from "../../../models/Transaction";
 
 type AddTransactionProps = {
   active: boolean;
   handleClick: () => void;
 };
 
-type FormData = {
-  type: string;
-  amount: string;
-  category: string;
-  date: string;
-  description: string;
-};
-
 const AddTransaction = ({ active, handleClick }: AddTransactionProps) => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<TransactionFormData>({
     type: "expense",
     amount: "",
     category: "groceries",

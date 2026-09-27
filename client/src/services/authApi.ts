@@ -1,15 +1,9 @@
 import type { SignupCardFormDataProps } from "../components/home/signup/SignupCard.tsx";
 import type { LoginFormDataProps } from "../components/home/login/LoginCard.tsx";
+import type { User } from "../models/User.ts";
 
 const API_URL = "http://localhost:5000/api/auth";
 
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  created_on: string;
-  updated_on?: string;
-}
 
 export interface AuthResponse {
   message: string;
