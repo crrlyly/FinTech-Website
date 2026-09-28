@@ -1,4 +1,4 @@
-import db from "../config/db";
+import db from "../config/db.js";
 
 export async function getTransactions(req, res) {
   try {
@@ -37,13 +37,13 @@ export async function addTransaction(req, res) {
       });
     }
 
-    const { description, date, amount, type, category } = req.body;
+    const { name, date, amount, type, category } = req.body;
 
     // TODO: Check values to make sure they are ok before inserting into database
 
     const [result] = await db.execute(
-      `insert into transactions(description, date, amount, type, category, uid) values (?,?,?,?,?,?)`,
-      [description, date, amount, type, category, uid],
+      `insert into transactions(name, date, amount, type, category, uid) values (?,?,?,?,?,?)`,
+      [name, date, amount, type, category, uid],
     );
 
     return res.status(201).json({
@@ -68,10 +68,10 @@ export async function updateTransaction(req, res) {
       });
     }
     const tid = req.params.tid;
-    const { description, date, amount, type, category } = req.body;
+    const { name, date, amount, type, category } = req.body;
     const [result] = await db.execute(
-      `update transactions set description=?, date=?, amount=?, type=?, category=? where tid=? and uid=?`,
-      [description, date, amount, type, category, tid, uid],
+      `update transactions set name=?, date=?, amount=?, type=?, category=? where tid=? and uid=?`,
+      [name, date, amount, type, category, tid, uid],
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({

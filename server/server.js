@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import session from "express-session";
+import { createClient } from "redis";
+import { RedisStore } from "connect-redis";
 
 import authRoutes from "./routes/authRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
@@ -13,6 +15,21 @@ dotenv.config({
 });
 
 const app = express();
+
+const redisClient = createClient({
+  url: process.env.REDIS_URL,
+});
+
+redisClient.on("error", (error) => {
+  console.error("REDIS ERROR:", error);
+});
+
+await redisClient.connect();
+
+const redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "fintech:",
+});
 
 app.use(
   cors({
@@ -26,6 +43,8 @@ app.use(express.json());
 app.use(
   session({
     name: "fintech.sid",
+
+    store: redisStore,
 
     secret: process.env.SESSION_SECRET,
 

@@ -1,17 +1,22 @@
 import TransactionCard from "./TransactionCard";
-import type { dummyTransactionsProps } from "./TransactionPage";
+import type { Transaction } from "../../../models/Transaction";
 
 type TransactionListProps = {
-  transactionList: dummyTransactionsProps[];
+  transactionList: Transaction[];
+  loadTransactions: () => Promise<void>;
 };
 
-const TransactionList = ({ transactionList }: TransactionListProps) => {
+const TransactionList = ({ transactionList, loadTransactions }: TransactionListProps) => {
   return (
     <div
       className={`w-full h-auto flex-1 bg-pink-200 flex flex-col gap-5 p-5 overflow-y-auto`}
     >
       {transactionList.map((transaction) => (
-        <TransactionCard key={transaction.name} transaction={transaction}></TransactionCard>
+        <TransactionCard
+          loadTransactions={loadTransactions}
+          key={transaction.tid}
+          transaction={transaction}
+        ></TransactionCard>
       ))}
     </div>
   );

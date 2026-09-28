@@ -1,16 +1,16 @@
 export interface Transaction {
   tid: number;
-  description: string;
+  name: string;
   date: string;
   amount: number;
-  type: string;
+  type: "income" | "expense";
   category: string;
-  uid: number;
+  uid?: number;
 }
 
 export interface TransactionFormData {
   tid?: number;
-  description: string;
+  name: string;
   date: string;
   amount: string;
   type: "income" | "expense";

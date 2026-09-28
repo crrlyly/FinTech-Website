@@ -1,40 +1,8 @@
 import AddTransaction from "../shared/AddTransaction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransactionList from "./TransactionList";
-
-const dummyTransactions: dummyTransactionsProps[] = [
-  {
-    name: "Electricity Bill",
-    category: "bills",
-    type: "expense",
-  },
-  {
-    name: "Concert Tickets",
-    category: "entertainment",
-    type: "expense",
-  },
-  {
-    name: "Design Project",
-    category: "freelance",
-    type: "income",
-  },
-];
-
-export interface dummyTransactionsProps {
-  name: string;
-  category:
-    | "all"
-    | "groceries"
-    | "entertainment"
-    | "transportation"
-    | "shopping"
-    | "dining"
-    | "bills"
-    | "salary"
-    | "freelance"
-    | "other";
-  type: "expense" | "income";
-}
+import type { Transaction } from "../../../models/Transaction";
+import { getTransactions } from "../../../services/transactionApi";
 
 const TransactionPage = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -42,12 +10,9 @@ const TransactionPage = () => {
   const [search, setSearch] = useState<string>("");
   const [chosenCategory, setChosenCategory] = useState<string>("all");
   const [chosenType, setChosenType] = useState<string>("all");
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  // TODO: Connect with database to get list of transactions
-  const [transactions, setTransactions] =
-    useState<dummyTransactionsProps[]>(dummyTransactions);
-
-  const filteredTransactions: dummyTransactionsProps[] = transactions
+  const filteredTransactions: Transaction[] = transactions
     .filter((transaction) =>
       transaction.name.toLowerCase().includes(search.toLowerCase()),
     )
@@ -58,6 +23,20 @@ const TransactionPage = () => {
     .filter(
       (transaction) => transaction.type === chosenType || chosenType === "all",
     );
+
+  async function loadTransactions() {
+    try {
+      const { transactions } = await getTransactions();
+      setTransactions(transactions);
+      console.log(transactions);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    loadTransactions();
+  }, []);
 
   const handleClick = () => {
     setActive((p) => !p);
@@ -114,9 +93,10 @@ const TransactionPage = () => {
       <AddTransaction
         active={active}
         handleClick={handleClick}
+        loadTransactions={loadTransactions}
       ></AddTransaction>
 
-      <TransactionList transactionList={filteredTransactions}></TransactionList>
+      <TransactionList loadTransactions={loadTransactions} transactionList={filteredTransactions}></TransactionList>
     </>
   );
 };

@@ -1,35 +1,63 @@
 import { useState } from "react";
 import type { TransactionFormData } from "../../../models/Transaction";
+import type { Transaction } from "../../../models/Transaction";
+import { addTransaction } from "../../../services/transactionApi";
+import { updateTransaction } from "../../../services/transactionApi";
 
 type AddTransactionProps = {
   active: boolean;
   handleClick: () => void;
+  existingTransaction?: Transaction;
+  loadTransactions: () => Promise<void>;
 };
 
-const AddTransaction = ({ active, handleClick }: AddTransactionProps) => {
+const AddTransaction = ({
+  active,
+  handleClick,
+  existingTransaction,
+  loadTransactions,
+}: AddTransactionProps) => {
   const [formData, setFormData] = useState<TransactionFormData>({
-    type: "expense",
-    amount: "",
-    category: "groceries",
-    date: "",
-    description: "",
+    tid: existingTransaction ? Number(existingTransaction.tid) : undefined,
+    type: existingTransaction ? existingTransaction.type : "expense",
+    amount: existingTransaction ? existingTransaction.amount.toString() : "",
+    category: existingTransaction ? existingTransaction.category : "groceries",
+    date: existingTransaction ? existingTransaction.date.split("T")[0] : "",
+    name: existingTransaction ? existingTransaction.name : "",
   });
 
-  const [type, setType] = useState("expense");
+  const [type, setType] = useState(
+    existingTransaction ? existingTransaction.type : "expense",
+  );
 
   function changeType(typeChange: "expense" | "income") {
     setType(typeChange);
     setFormData((p) => ({ ...p, type: typeChange }));
   }
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      let res: Transaction;
+      if (existingTransaction) {
+        res = await updateTransaction(formData);
+      } else {
+        res = await addTransaction(formData);
+      }
+
+      console.log("Response:", res);
+      if (loadTransactions) {
+        await loadTransactions();
+      }
+    } catch (error) {
+      console.error(error);
+    }
     console.log("Object: ", formData);
   };
 
   return (
     <div
-      className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 bg-pink-200 justify-center items-center `}
+      className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-pink-200 justify-center items-center `}
     >
       <div className={`w-full h-auto bg-blue-200 m-5`}>
         <div
@@ -68,7 +96,7 @@ const AddTransaction = ({ active, handleClick }: AddTransactionProps) => {
             <label htmlFor="">Amount</label>
             <input
               className={`bg-pink-200`}
-              type="text"
+              type="number"
               value={formData.amount}
               onChange={(e) =>
                 setFormData((p) => ({ ...p, amount: e.target.value }))
@@ -109,13 +137,13 @@ const AddTransaction = ({ active, handleClick }: AddTransactionProps) => {
             />
           </div>
           <div className={`flex flex-col m-5`}>
-            <label htmlFor="">Description</label>
+            <label htmlFor="">Name</label>
             <input
               className={`bg-pink-200`}
               type="text"
-              value={formData.description}
+              value={formData.name}
               onChange={(e) =>
-                setFormData((p) => ({ ...p, description: e.target.value }))
+                setFormData((p) => ({ ...p, name: e.target.value }))
               }
             />
           </div>

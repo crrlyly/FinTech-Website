@@ -2,7 +2,7 @@ import type { GoalFormData } from "../models/Goal";
 
 const API_URL: string = "http://localhost:5000/api/goal";
 
-export async function getTransactions() {
+export async function getGoals() {
   const res = await fetch(`${API_URL}/`, {
     credentials: "include",
   });
@@ -17,7 +17,7 @@ export async function getTransactions() {
   return data;
 }
 
-export async function addTransaction(formData: GoalFormData) {
+export async function addGoal(formData: GoalFormData) {
   const res = await fetch(`${API_URL}/`, {
     credentials: "include",
     method: "POST",
@@ -37,7 +37,7 @@ export async function addTransaction(formData: GoalFormData) {
   return data;
 }
 
-export async function updateTransaction(formData: GoalFormData) {
+export async function updateGoal(formData: GoalFormData) {
   const res = await fetch(`${API_URL}/${formData.gid}`, {
     method: "PATCH",
     body: JSON.stringify(formData),
@@ -58,7 +58,7 @@ export async function updateTransaction(formData: GoalFormData) {
   return data;
 }
 
-export async function deleteTransaction(gid: number) {
+export async function deleteGoal(gid: number) {
   const res = await fetch(`${API_URL}/${gid}`, {
     method: "DELETE",
     credentials: "include",

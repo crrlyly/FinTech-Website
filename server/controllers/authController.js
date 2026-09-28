@@ -107,7 +107,7 @@ export async function login(req, res) {
         });
       }
 
-      req.session.userId = user.custId;
+      req.session.userId = user.id;
 
       req.session.save((saveError) => {
         if (saveError) {
