@@ -29,20 +29,28 @@ const LoginCard = () => {
   };
 
   return (
-    <div className={`w-full h-auto bg-blue-200rounded-3xl`}>
+    <div className={`w-full h-auto bg-(--primary) rounded-3xl`}>
       <div
-        className={`flex flex-col items-center text-3xl mb-5 font-extrabold`}
+        className={`flex flex-col items-center text-4xl mb-5 font-bold text-white`}
       >
-        <span className="material-symbols-outlined text-2xl! ">login</span>
+        <span className="material-symbols-outlined text-4xl! text-white bg-(--purple) p-2 rounded-2xl mb-2">
+          login
+        </span>
         Welcome back!
-        <span className={`text-[1.1rem]!`}>Log in to your account</span>
+        <span className={`text-[1.1rem]! text-white/50 font-light mb-3 mt-2`}>
+          Log in to your account
+        </span>
       </div>
-      <form onSubmit={submit} className={`border p-5 rounded-3xl mb-5`}>
+      <form
+        onSubmit={submit}
+        className={`border p-5 rounded-2xl mb-5 bg-(--card) border-white/10 text-white`}
+      >
         <div className={`flex flex-col mb-3`}>
-          <label htmlFor="" className={`text-2xl`}>
+          <label htmlFor="" className={`text-[1rem] mb-2`}>
             Email
           </label>
           <input
+            className={`border border-white/10 p-2 rounded-[10px]`}
             placeholder="you@example.com"
             type="text"
             value={formData.email}
@@ -52,10 +60,11 @@ const LoginCard = () => {
           />
         </div>
         <div className={`flex flex-col mb-3`}>
-          <label htmlFor="" className={`text-2xl`}>
+          <label htmlFor="" className={`text-[1rem] mb-2`}>
             Password
           </label>
           <input
+            className={`border border-white/10 p-2 rounded-[10px] mb-2`}
             placeholder="*********"
             type="password"
             value={formData.password}
@@ -64,13 +73,18 @@ const LoginCard = () => {
             }
           />
         </div>
-        <button className={`bg-green-200 w-full p-3`} type="submit">
+        <button
+          className={` w-full p-3 rounded-2xl bg-(--purple)`}
+          type="submit"
+        >
           Log in
         </button>
       </form>
-      <div className={`w-full flex justify-center items-center gap-1`}>
+      <div
+        className={`w-full flex justify-center items-center gap-2 text-white/40`}
+      >
         Don't have an account?{" "}
-        <Link to="/signup" className={`text-blue-600`}>
+        <Link to="/signup" className={`text-(--purple)`}>
           {" "}
           Create one
         </Link>

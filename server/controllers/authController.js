@@ -165,9 +165,8 @@ export async function getCurrentUser(req, res) {
         id,
         email,
         name,
-        profile_pic,
-        created_at,
-        updated_at
+        created_on,
+        updated_on
       FROM user
       WHERE id = ?
       LIMIT 1

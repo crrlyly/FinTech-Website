@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
 import Dashboard from "./pages/app/Dashboard";
 import Transaction from "./pages/app/Transaction";
 import Budgets from "./pages/app/Budgets";
@@ -9,19 +10,21 @@ import Signup from "./pages/home/Signup";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/transactions" element={<Transaction />} />
-          <Route path="/budgets" element={<Budgets />} />\
-          <Route path="/savings" element={<Savings />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </div>
-    </Router>
+    <UserProvider>
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/transactions" element={<Transaction />} />
+            <Route path="/budgets" element={<Budgets />} />\
+            <Route path="/savings" element={<Savings />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 

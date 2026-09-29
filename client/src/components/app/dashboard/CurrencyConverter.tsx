@@ -37,26 +37,30 @@ const CurrencyConverter = () => {
   // tsx code
   return (
     <div
-      className={`w-full h-auto bg-pink-200 flex justify-center items-center p-5`}
+      className={`w-full h-auto bg-(--primary) flex justify-center items-center p-5`}
     >
-      <div className={`w-full h-auto bg-blue-200`}>
-        <div>
-          <span className="material-symbols-outlined">currency_exchange</span>
+      <div className={`w-full h-auto bg-(--card) rounded-2xl text-white p-7 border border-white/10`}>
+        <div className={`flex items-center text-[1.2rem] font-semibold mb-5`}>
+          <span className="material-symbols-outlined text-green-500 mr-2">
+            currency_exchange
+          </span>
           Currency Converter
         </div>
         <div>
-          <div>
-            <label htmlFor="">Amount</label>
+          <div className={`flex flex-col mb-3`}>
+            <label htmlFor="" className={`text-(--greyText)`}>Amount</label>
             <input
+              className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1`}
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
-          <div>
-            <div>
-              <label htmlFor="">From</label>
+          <div className={`flex justify-between gap-3`}>
+            <div className={`flex flex-col flex-1`}>
+              <label className={`text-(--greyText)`} htmlFor="">From</label>
               <select
+                className={`bg-white/10 border border-white/10 pr-10 rounded-[5px] py-1`}
                 name="from"
                 id="from"
                 value={from}
@@ -65,9 +69,10 @@ const CurrencyConverter = () => {
                 <CurrencyDropdown></CurrencyDropdown>
               </select>
             </div>
-            <div>
-              <label htmlFor="">To</label>
+            <div className={`flex flex-col flex-1 text-white`}>
+              <label className={`text-(--greyText)`} htmlFor="">To</label>
               <select
+                className={`bg-white/10 border border-white/10 pr-10 rounded-[5px] py-1 `}
                 name="to"
                 id="to"
                 value={to}
@@ -76,11 +81,12 @@ const CurrencyConverter = () => {
                 <CurrencyDropdown></CurrencyDropdown>
               </select>
             </div>
-            <div>
-              {changeCurrencySymbol(Number(amount), from)}
-              <span className="material-symbols-outlined">arrow_forward</span>
-              {converted}
-            </div>
+          </div>
+          <div className={`flex items-center justify-between text-(--greyText) bg-(--purple)/10  rounded-[5px] px-3 py-2 mt-5`} >
+            {changeCurrencySymbol(Number(amount), from)}
+            <span className="material-symbols-outlined text-(--purple) text-[.9rem]!">arrow_forward</span>
+            <span className={`text-white font-bold`}>{converted || "$0.00"}</span>
+           
           </div>
         </div>
       </div>

@@ -23,14 +23,21 @@ const RecentTransactions = () => {
 
   return (
     <div
-      className={`w-full h-auto bg-pink-700 flex justify-center items-center p-5`}
+      className={`w-full h-auto bg-(--primary) flex justify-center items-center p-5`}
     >
-      <div className={`w-full h-auto bg-blue-200 flex flex-col`}>
-        <div className={`flex justify-between p-5`}>
-          Recent Transactions <Link to="/transactions">View all</Link>
+      <div
+        className={`w-full h-auto bg-(--card) flex flex-col rounded-2xl border border-white/10`}
+      >
+        <div
+          className={`flex justify-between items-center px-7 pt-7 mb-2 text-white font-bold text-[1.2rem]`}
+        >
+          Recent Transactions{" "}
+          <Link to="/transactions" className={`text-[.9rem] text-(--purple) font-normal hover:underline`}>
+            View all
+          </Link>
         </div>
         <div
-          className={`w-full min-h-50 bg-pink-200 flex flex-col items-center gap-5 p-5`}
+          className={`w-full min-h-50 bg-(--card) flex flex-col items-center gap-5 p-5`}
         >
           {transactions.slice(-4).map((t) => (
             <TransactionCard key={t.tid} transaction={t}></TransactionCard>

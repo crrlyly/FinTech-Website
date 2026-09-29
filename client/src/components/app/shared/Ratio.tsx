@@ -1,14 +1,23 @@
-const Ratio = () => {
+import type { Budget } from "../../../models/Budget";
+
+type RatioProps = {
+  usedMoney: number;
+  budget: Budget;
+  percent: number;
+};
+
+const Ratio = ({ usedMoney, budget, percent }: RatioProps) => {
   return (
     <>
       <div className={`flex justify-between items-center mt-5 text-[1.2rem]`}>
-        <span>$300.00</span>
-        <span>of $500.00</span>
+        <span>${usedMoney}</span>
+        <span>of ${budget.maxAmount}</span>
       </div>
 
       <div className={`w-full h-4 bg-red-100 rounded-full relative mt-2`}>
         <div
-          className={`absolute top-0 left-0 w-[35%] h-full bg-pink-500 rounded-full`}
+          style={{ width: `${percent}%` }}
+          className={`absolute top-0 left-0  h-full bg-pink-500 rounded-full`}
         ></div>
       </div>
     </>

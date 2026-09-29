@@ -18,6 +18,7 @@ export async function getBudgets() {
 }
 
 export async function updateBudgets(formData: BudgetFormData) {
+  console.log(formData);
   const res = await fetch(`${API_URL}/${formData.bid}`, {
     method: "PATCH",
     credentials: "include",

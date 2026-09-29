@@ -2,9 +2,16 @@
 
 @import "tailwindcss";
 
-/* :root {
-  --primary: ;
-} */
+:root {
+  --primary: #0a0c15;
+  --card: #121421;
+  --purple: #7a60fb;
+  --greyText: color-mix(
+    in oklab,
+    var(--color-white) /* #fff = #ffffff */ 50%,
+    transparent
+  );
+}
 
 body {
   font-family: "Saira Condensed", sans-serif;
@@ -16,7 +23,7 @@ body,
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
-  overflow-y:auto;
+  overflow-y: auto;
   background: #f3f4f6;
 }
 

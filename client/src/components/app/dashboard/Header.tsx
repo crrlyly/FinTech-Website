@@ -1,28 +1,48 @@
 import { useState } from "react";
 import AddTransaction from "../shared/AddTransaction";
+import type { Transaction } from "../../../models/Transaction";
+import { getTransactions } from "../../../services/transactionApi";
 
 const Header = () => {
   const [active, setActive] = useState<boolean>(false);
 
-  function handleClick(){
-    setActive((p) => !p)
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  
+  console.log(transactions)
+
+  async function loadTransactions() {
+    try {
+      const { transactions } = await getTransactions();
+      setTransactions(transactions);
+      console.log(transactions);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function handleClick() {
+    setActive((p) => !p);
   }
 
   return (
     <>
       <div
-        className={`w-full h-auto bg-yellow-200 relative flex flex-col p-5 z-20`}
+        className={`w-full h-auto bg-(--primary) relative flex flex-col p-5 z-20`}
       >
-        <span>Welcome back. Here's your financial overview.</span>
+        <span className={`text-(--greyText)`}>Welcome back. Here's your financial overview.</span>
         <button
           onClick={() => handleClick()}
-          className={`bg-green-200 flex mt-3 rounded-full p-2`}
+          className={`text-white bg-(--purple) flex mt-3 rounded-full p-2`}
         >
           <span className="material-symbols-outlined">add</span>
           Add transaction
         </button>
       </div>
-      <AddTransaction active ={active}  handleClick={handleClick}></AddTransaction>
+      <AddTransaction
+        active={active}
+        handleClick={handleClick}
+        loadTransactions={loadTransactions}
+      ></AddTransaction>
     </>
   );
 };

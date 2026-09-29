@@ -19,9 +19,9 @@ const data = [
 
 const SpendingGraph = () => {
   return (
-    <div className={`w-full h-100 flex justify-center items-center`}>
-      <div className={`w-[80%] h-[80%] p-10 border rounded-2xl`}>
-        <span className={`text-2xl`}>Spending overview</span>
+    <div className={`w-full h-100 flex justify-center items-center bg-(--primary)`}>
+      <div className={`w-[90%] h-[90%] p-10 rounded-2xl bg-(--card) border border-white/10`}>
+        <span className={`text-[1.1rem] text-white`}>Spending overview</span>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data}>
             <defs>

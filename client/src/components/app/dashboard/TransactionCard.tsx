@@ -2,10 +2,12 @@ import type { Transaction } from "../../../models/Transaction";
 const TransactionCard = ({ transaction }: { transaction: Transaction }) => {
   return (
     <div
-      className={`w-[90%] h-auto bg-green-200 flex justify-between items-center`}
+      className={`w-[90%] h-auto bg-(--card) hover:bg-white/5 -2 flex justify-between items-center text-white p-2 rounded-md`}
     >
       <div className={`flex items-center`}>
-        <span className="material-symbols-outlined w-12 h-12 rounded-full bg-yellow-200 inline-flex! justify-center items-center">
+        <span
+          className={`mr-3 ${transaction.type === "expense" ? "bg-red-500/20 text-red-500" : "bg-green-500/20  text-green-500"} material-symbols-outlined w-12 h-12 rounded-full bg-green-200 inline-flex! justify-center items-center`}
+        >
           {transaction.type === "expense" ? "trending_down" : "trending_up"}
         </span>
         <div className={`inline-flex flex-col`}>

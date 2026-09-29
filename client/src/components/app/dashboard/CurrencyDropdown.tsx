@@ -1,14 +1,14 @@
 const CurrencyDropdown = () => {
   return (
     <>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="GBP">GBP</option>
-      <option value="JPY">JPY</option>
-      <option value="CAD">CAD</option>
-      <option value="AUD">AUD</option>
-      <option value="INR">INR</option>
-      <option value="MXN">MXN</option>
+      <option className="bg-(--card) text-white" value="USD">USD</option>
+      <option className="bg-(--card) text-white" value="EUR">EUR</option>
+      <option className="bg-(--card) text-white" value="GBP">GBP</option>
+      <option className="bg-(--card) text-white" value="JPY">JPY</option>
+      <option className="bg-(--card) text-white" value="CAD">CAD</option>
+      <option className="bg-(--card) text-white" value="AUD">AUD</option>
+      <option className="bg-(--card) text-white" value="INR">INR</option>
+      <option className="bg-(--card) text-white" value="MXN">MXN</option>
     </>
   );
 };

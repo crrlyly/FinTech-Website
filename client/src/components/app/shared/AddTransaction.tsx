@@ -70,7 +70,7 @@ const AddTransaction = ({
         </div>
 
         <form
-          className={`w-full h-full bg-green-200`}
+          className={`w-full h-full bg-(--purple)`}
           onSubmit={(e) => handleSubmit(e)}
         >
           <div

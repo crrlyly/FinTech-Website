@@ -39,11 +39,18 @@ export async function updateBudget(req, res) {
 
     const bid = req.params.bid;
 
-    const { amountUsed, maxAmount, category, month } = req.body;
+    const { maxAmount, category } = req.body;
+
+    console.log({
+      maxAmount,
+      category,
+      bid,
+      uid,
+    });
 
     const [result] = await db.execute(
-      `update budgets set amountUsed=?, maxAmount=?, category=?, month=? where bid=? and uid=?`,
-      [amountUsed, maxAmount, category, month, bid, uid],
+      `update budgets set maxAmount=?, category=? where bid=? and uid=?`,
+      [maxAmount, category, bid, uid],
     );
 
     if (result.affectedRows === 0) {
@@ -53,6 +60,7 @@ export async function updateBudget(req, res) {
     }
 
     res.status(200).json({
+      result,
       message: "update complete for budget",
     });
   } catch (error) {
