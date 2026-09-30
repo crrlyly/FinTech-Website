@@ -21,12 +21,12 @@ const BudgetCard = ({ budget, usedMoney, loadBudgets }: BudgetCardProps) => {
 
   return (
     <>
-      <div className={`w-full min-h-45 h-auto bg-blue-200 p-8`}>
-        <div className={`flex justify-between text-2xl`}>
+      <div className={`w-full min-h-45 h-auto bg-(--card) p-8 border border-white/10 rounded-[15px] text-white`}>
+        <div className={`flex justify-between text-[1.2rem] font-bold`}>
           {budget.category}
           <div className={``}>
             <button onClick={handleClick} className={`mr-5 p-1`}>
-              <span className="material-symbols-outlined">edit</span>
+              <span className="material-symbols-outlined text-[1.2rem]! text-(--greyText)">edit</span>
             </button>
             {/* <button className={`p-1`}>
               <span className="material-symbols-outlined">delete</span>

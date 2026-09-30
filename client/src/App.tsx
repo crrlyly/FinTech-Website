@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import Dashboard from "./pages/app/Dashboard";
 import Transaction from "./pages/app/Transaction";
@@ -14,6 +19,7 @@ function App() {
       <Router>
         <div>
           <Routes>
+            <Route path="/" element={<Navigate to="/login" replace/>} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/transactions" element={<Transaction />} />
             <Route path="/budgets" element={<Budgets />} />\

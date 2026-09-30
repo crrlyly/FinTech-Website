@@ -32,16 +32,26 @@ const RecentTransactions = () => {
           className={`flex justify-between items-center px-7 pt-7 mb-2 text-white font-bold text-[1.2rem]`}
         >
           Recent Transactions{" "}
-          <Link to="/transactions" className={`text-[.9rem] text-(--purple) font-normal hover:underline`}>
+          <Link
+            to="/transactions"
+            className={`text-[.9rem] text-(--purple) font-normal hover:underline`}
+          >
             View all
           </Link>
         </div>
         <div
-          className={`w-full min-h-50 bg-(--card) flex flex-col items-center gap-5 p-5`}
+          className={`w-full min-h-50 bg-(--card) flex flex-col items-center gap-5 p-5 text-white`}
         >
-          {transactions.slice(-4).map((t) => (
-            <TransactionCard key={t.tid} transaction={t}></TransactionCard>
-          ))}
+          {transactions.length > 0
+            ? transactions
+                .slice(-4)
+                .map((t) => (
+                  <TransactionCard
+                    key={t.tid}
+                    transaction={t}
+                  ></TransactionCard>
+                ))
+            : (<div className={`self-start text-(--greyText) ml-2`}>Please add transactions.</div>)}
         </div>
       </div>
     </div>

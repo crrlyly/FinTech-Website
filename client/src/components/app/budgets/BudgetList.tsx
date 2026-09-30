@@ -35,7 +35,7 @@ const BudgetList = () => {
   }, []);
   return (
     <div
-      className={`w-full h-auto bg-pink-200 p-5 flex flex-col items-center flex-1 gap-5`}
+      className={`w-full h-auto bg-(--primary) p-5 flex flex-col items-center flex-1 gap-5`}
     >
       {budgets.map((b) => {
         const usedMoney: number = getPriceByCategory(transactions, b.category);

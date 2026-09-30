@@ -1,7 +1,7 @@
 const BudgetHeader = () => {
   return (
-    <div className={`w-full h-auto bg-pink-200 flex items-center p-5`}>
-      <span>Monthly budgets for September 2026 </span>
+    <div className={`w-full h-auto bg-(--primary) flex items-center p-5`}>
+      <span className={`text-(--greyText)`}>Monthly budgets for September 2026 </span>
     </div>
   );
 };

@@ -10,13 +10,13 @@ export async function getGoals(req, res) {
       });
     }
 
-    const [budgets] = await db.execute(
+    const [goals] = await db.execute(
       `select * from savings_goals where uid = ?`,
       [uid],
     );
 
     return res.status(200).json({
-      budgets,
+      goals,
     });
   } catch (error) {
     console.error(error);
@@ -28,6 +28,7 @@ export async function getGoals(req, res) {
 }
 
 export async function addGoal(req, res) {
+  console.log("🔥 ADD GOAL CONTROLLER HIT");
   try {
     const uid = req.session?.userId;
 
@@ -37,16 +38,18 @@ export async function addGoal(req, res) {
       });
     }
 
+    console.log(req.body);
+
     const { targetDate, goalAmount, name, currAmount } = req.body;
 
     const [result] = await db.execute(
-      `insert into saved_goals(targetDate, goalAmount, name, currAmount, uid) values (?,?,?,?,?)`,
-      [targetDate, goalAmount, name, currAmount, uid],
+      `insert into savings_goals(targetDate, goalAmount, name, currAmount, uid) values (?,?,?,?,?)`,
+      [targetDate, Number(goalAmount), name, Number(currAmount), uid],
     );
 
     return res.status(201).json({
       message: "Successfully added goal.",
-      tid: result.insertId,
+      gid: result.insertId,
     });
   } catch (error) {
     console.error(error);
@@ -72,12 +75,19 @@ export async function updateGoal(req, res) {
 
     const [result] = await db.execute(
       `update savings_goals set targetDate=?, goalAmount=?, name=?, currAmount=? where gid=? and uid=?`,
-      [targetDate, goalAmount, name, currAmount, gid, uid],
+      [
+        targetDate.split("T")[0],
+        Number(goalAmount),
+        name,
+        Number(currAmount),
+        gid,
+        uid,
+      ],
     );
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
-        message: "Goal not found.",
+        error: "Goal not found.",
       });
     }
 
@@ -87,7 +97,7 @@ export async function updateGoal(req, res) {
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: "failed to update goals",
+      error: "failed to update goals",
     });
   }
 }

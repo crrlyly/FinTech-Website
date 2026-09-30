@@ -1,13 +1,24 @@
 import SavingsCard from "./SavingsCard";
+import { useEffect } from "react";
+import type { Goal } from "../../../models/Goal";
 
-const SavingsList = () => {
+type SavingsListProps = {
+  goals: Goal[];
+  loadGoals: () => Promise<void>;
+};
+
+const SavingsList = ({ goals, loadGoals }: SavingsListProps) => {
+  useEffect(() => {
+    loadGoals();
+  }, []);
+
   return (
-    <div className={`w-full h-auto bg-pink-200 p-5 flex-1 flex flex-col gap-5`}>
-      <SavingsCard></SavingsCard>
-      <SavingsCard></SavingsCard>
-      <SavingsCard></SavingsCard>
-      <SavingsCard></SavingsCard>
-      <SavingsCard></SavingsCard>
+    <div
+      className={`w-full h-auto bg-(--primary) p-5 flex-1 flex flex-col gap-5 text-(--greyText) text-[1.1rem]`}
+    >
+      {goals.length !== 0
+        ? goals.map((g) => <SavingsCard key={g.gid} goal={g} loadGoals={loadGoals}/>)
+        : "No goals yet. Create one to start saving."}
     </div>
   );
 };

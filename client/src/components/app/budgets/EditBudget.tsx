@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Budget } from "../../../models/Budget";
 import { updateBudgets } from "../../../services/budgetApi";
 
@@ -33,9 +33,22 @@ const EditBudget = ({
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    if (active) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
+  }, [active]);
+
   return (
     <div
-      className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-pink-200 justify-center items-center `}
+      className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-(--primary)/30 backdrop-blur-sm justify-center items-center `}
     >
       <div className={`w-full h-auto bg-blue-200 m-5`}>
         <div className={`flex justify-between items-center`}>

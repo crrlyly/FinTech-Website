@@ -9,7 +9,7 @@ type TransactionListProps = {
 const TransactionList = ({ transactionList, loadTransactions }: TransactionListProps) => {
   return (
     <div
-      className={`w-full h-auto flex-1 bg-pink-200 flex flex-col gap-5 p-5 overflow-y-auto`}
+      className={`w-full h-auto flex-1 bg-(--primary) flex flex-col gap-5 p-5 overflow-y-auto`}
     >
       {transactionList.map((transaction) => (
         <TransactionCard

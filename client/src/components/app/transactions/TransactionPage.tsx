@@ -45,12 +45,12 @@ const TransactionPage = () => {
   return (
     <>
       <div
-        className={`w-full h-auto bg-yellow-200 relative flex flex-col p-5 z-20`}
+        className={`w-full h-auto bg-(--primary) relative flex flex-col p-5 z-20`}
       >
         <input
+          className={`bg-white/10 border border-white/10 rounded-[5px] px-3 py-1 mb-2 text-white/60`}
           type="text"
           placeholder="Search transactions..."
-          className={`bg-blue-200`}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -58,7 +58,7 @@ const TransactionPage = () => {
         <select
           name=""
           id=""
-          className={`bg-blue-200`}
+          className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white mb-2`}
           value={chosenCategory}
           onChange={(e) => setChosenCategory(e.target.value)}
         >
@@ -77,7 +77,7 @@ const TransactionPage = () => {
         <select
           name=""
           id=""
-          className={`bg-blue-200`}
+          className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white mb-3`}
           value={chosenType}
           onChange={(e) => setChosenType(e.target.value)}
         >
@@ -86,8 +86,12 @@ const TransactionPage = () => {
           <option value="expense">Expense</option>
         </select>
 
-        <button onClick={handleClick} className={`bg-pink-200`}>
-          <span className="material-symbols-outlined">add</span>
+        <button
+          onClick={handleClick}
+          className={`bg-(--purple) flex items-center justify-start p-2 rounded-full text-white`}
+        >
+          <span className="material-symbols-outlined text-[1.1rem]! mr-2">add</span>
+          Add
         </button>
       </div>
       <AddTransaction
@@ -96,7 +100,10 @@ const TransactionPage = () => {
         loadTransactions={loadTransactions}
       ></AddTransaction>
 
-      <TransactionList loadTransactions={loadTransactions} transactionList={filteredTransactions}></TransactionList>
+      <TransactionList
+        loadTransactions={loadTransactions}
+        transactionList={filteredTransactions}
+      ></TransactionList>
     </>
   );
 };

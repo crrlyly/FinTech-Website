@@ -1,4 +1,4 @@
-import type { GoalFormData } from "../models/Goal";
+import type { Goal, GoalFormData } from "../models/Goal";
 
 const API_URL: string = "http://localhost:5000/api/goal";
 
@@ -37,10 +37,10 @@ export async function addGoal(formData: GoalFormData) {
   return data;
 }
 
-export async function updateGoal(formData: GoalFormData) {
-  const res = await fetch(`${API_URL}/${formData.gid}`, {
+export async function updateGoal(goal: Goal) {
+  const res = await fetch(`${API_URL}/${goal.gid}`, {
     method: "PATCH",
-    body: JSON.stringify(formData),
+    body: JSON.stringify(goal),
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
