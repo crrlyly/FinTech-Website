@@ -50,24 +50,28 @@ const EditBudget = ({
     <div
       className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-(--primary)/30 backdrop-blur-sm justify-center items-center `}
     >
-      <div className={`w-full h-auto bg-blue-200 m-5`}>
-        <div className={`flex justify-between items-center`}>
+      <div
+        className={`w-full h-auto bg-(--card)/60 backdrop-blur-sm m-5 border border-white/10 rounded-[20px] p-5 text-white`}
+      >
+        <div
+          className={`flex justify-between items-center font-bold text-[1.2rem] mb-3`}
+        >
           Edit Budget
           <button onClick={() => handleClick()}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className={`flex flex-col`}>
-            <label htmlFor="">Monthly Limit</label>
+          <div className={`flex flex-col mb-5`}>
+            <label htmlFor="" className={`mb-2`}>Monthly Limit</label>
             <input
+              className={`w-full bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1`}
               type="number"
-              className={`bg-green-200`}
               value={monthlyLimit}
               onChange={(e) => setMonthlyLimit(e.target.value)}
             />
           </div>
-          <button type="submit">Submit</button>
+          <button className={`bg-(--purple) w-full p-2 rounded-[10px]`} type="submit">Submit</button>
         </form>
       </div>
     </div>

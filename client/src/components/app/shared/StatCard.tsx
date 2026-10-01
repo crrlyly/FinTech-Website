@@ -1,7 +1,13 @@
+import type { Budget } from "../../../models/Budget";
+import type { Transaction } from "../../../models/Transaction";
+
 interface StatCardProps {
   area?: "balance" | "saved" | "available";
+  transactions: Transaction[];
+  budgets?: Budget[];
+  action?: "income" | "total" | "spent" | "unallocated";
 }
-const StatCard = ({ area }: StatCardProps) => {
+const StatCard = ({ area, transactions, budgets, action }: StatCardProps) => {
   return (
     <div
       style={{ gridArea: area }}

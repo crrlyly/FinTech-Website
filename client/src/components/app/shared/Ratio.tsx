@@ -21,7 +21,7 @@ const Ratio = ({ usedMoney, budget, goal, percent }: RatioProps) => {
       <div className={`w-full h-4 bg-(--purple)/20 rounded-full relative mt-2`}>
         <div
           style={{ width: `${percent}%` }}
-          className={`absolute top-0 left-0  h-full bg-(--purple) rounded-full`}
+          className={`${percent === 100 ? "bg-red-500" : "bg-(--purple)"} absolute top-0 left-0  h-full  rounded-full`}
         ></div>
       </div>
     </>
