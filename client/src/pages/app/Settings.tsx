@@ -4,7 +4,7 @@ import Questions from "../../components/app/settings/Questions";
 
 const Settings = () => {
   return (
-    <div className={`w-full min-h-dvh pt-20 relative flex flex-col`}>
+    <div className={`w-full min-h-dvh pt-20 relative flex flex-col bg-(--primary)`}>
       <TopNav title="Settings"></TopNav>
       <SettingsForms></SettingsForms>
       <Questions></Questions>

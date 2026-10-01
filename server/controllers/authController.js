@@ -140,7 +140,7 @@ export async function logout(req, res) {
       });
     }
 
-    res.clearCookie("shop_session");
+    res.clearCookie("fintech.sid");
 
     return res.status(200).json({
       message: "Logged out successfully.",
@@ -190,6 +190,43 @@ export async function getCurrentUser(req, res) {
 
     return res.status(500).json({
       error: "Unable to get current user.",
+    });
+  }
+}
+
+export async function updateUser(req, res) {
+  try {
+    const uid = req.session?.userId;
+    if (!uid) {
+      return res.status(401).json({
+        error: "You must be logged in.",
+      });
+    }
+
+    console.log(uid);
+
+    const { name, email } = req.body;
+
+    const now = new Date();
+
+    const [response] = await db.execute(
+      "update user set name=?, email=?, updated_on=? where id=?",
+      [name, email, now.toISOString().slice(0, 19).replace("T", " "), uid],
+    );
+
+    if (response.affectedRows === 0) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Succesfully updated user",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Unable to update user.",
     });
   }
 }

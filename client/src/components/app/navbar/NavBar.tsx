@@ -14,6 +14,8 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
     active: active,
   };
 
+  
+
   return (
     <div
       className={`

@@ -3,7 +3,7 @@ import type { LoginFormDataProps } from "../components/home/login/LoginCard.tsx"
 import type { User } from "../models/User.ts";
 
 const API_URL = "http://localhost:5000/api/auth";
-
+// const HOST_API_URL = "http://192.168.1.154:5173/";
 
 export interface AuthResponse {
   message: string;
@@ -47,7 +47,7 @@ export async function login(
     throw new Error(data.error || `Request failed with status ${res.status}`);
   }
 
-  return data;
+  return res.json();
 }
 
 export async function logout() {
@@ -71,5 +71,20 @@ export async function getCurrentUser() {
     throw new Error("Unable to fetch current user");
   }
 
+  return res.json();
+}
+
+export async function updateUser(name: string, email: string) {
+  const res = await fetch(`${API_URL}/`, {
+    credentials: "include",
+    method: "PATCH",
+    body: JSON.stringify({ name, email }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Unable to update user");
+  }
   return res.json();
 }

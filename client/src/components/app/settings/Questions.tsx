@@ -21,8 +21,8 @@ const qa: QuestAndAnswerProp[] = [
 
 const Questions = () => {
   return (
-    <div className={`w-full h-auto bg-blue-200 flex-1 p-5`}>
-      <div className={`w-full h-auto p-5 bg-orange-400 flex flex-col gap-3`}>
+    <div className={`w-full h-auto bg-(--primary) flex-1 p-5`}>
+      <div className={`w-full h-auto p-5 bg-(--primary) flex flex-col gap-3 text-white text-[1.2rem] font-bold`}>
         Frequently Asked Questions
         {qa.map(q=>(<QuestionDropdown key={q.id} question={q}></QuestionDropdown>))}
       </div>

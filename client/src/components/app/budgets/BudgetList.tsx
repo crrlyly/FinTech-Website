@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import type { Transaction } from "../../../models/Transaction";
 import { getTransactions } from "../../../services/transactionApi";
 import { getPriceByCategory } from "../../../helpers/budgetHelper";
+import type { GetActivationProp } from "../../../pages/app/Budgets";
 
-const BudgetList = () => {
+const BudgetList = ({ activateBudget }: GetActivationProp) => {
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
@@ -35,7 +36,7 @@ const BudgetList = () => {
   }, []);
   return (
     <div
-      className={`w-full h-auto bg-(--primary) p-5 flex flex-col items-center flex-1 gap-5`}
+      className={`${activateBudget ? "flex" : "hidden"} w-full h-auto bg-(--primary) p-5 flex-col items-center flex-1 gap-5`}
     >
       {budgets.map((b) => {
         const usedMoney: number = getPriceByCategory(transactions, b.category);
