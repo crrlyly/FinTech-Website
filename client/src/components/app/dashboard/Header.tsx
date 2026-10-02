@@ -7,8 +7,8 @@ const Header = () => {
   const [active, setActive] = useState<boolean>(false);
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  
-  console.log(transactions)
+
+  console.log(transactions);
 
   async function loadTransactions() {
     try {
@@ -27,12 +27,14 @@ const Header = () => {
   return (
     <>
       <div
-        className={`w-full h-auto bg-(--primary) relative flex flex-col p-5 z-20`}
+        className={`w-full h-auto bg-(--primary) relative flex flex-col md:flex-row md:items-center md:justify-between p-5 z-20`}
       >
-        <span className={`text-(--greyText)`}>Welcome back. Here's your financial overview.</span>
+        <span className={`text-(--greyText) md:text-[1.2rem]`}>
+          Welcome back. Here's your financial overview.
+        </span>
         <button
           onClick={() => handleClick()}
-          className={`text-white bg-(--purple) flex mt-3 rounded-full p-2`}
+          className={`text-white bg-(--purple) flex mt-3 rounded-full p-2 md:mt-0 md:px-5`}
         >
           <span className="material-symbols-outlined">add</span>
           Add transaction

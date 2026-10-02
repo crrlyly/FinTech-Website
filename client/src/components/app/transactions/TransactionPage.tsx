@@ -45,10 +45,10 @@ const TransactionPage = () => {
   return (
     <>
       <div
-        className={`w-full h-auto bg-(--primary) relative flex flex-col p-5 z-20`}
+        className={`w-full h-auto bg-(--primary) relative flex flex-col md:flex-row md:items-center p-5 z-20`}
       >
         <input
-          className={`bg-white/10 border border-white/10 rounded-[5px] px-3 py-1 mb-2 text-white/60`}
+          className={`bg-white/10 border border-white/10 rounded-[5px] px-3 py-1 mb-2 text-white/60 md:w-[50%] md:mr-3 md:flex md:items-center md:m-0`}
           type="text"
           placeholder="Search transactions..."
           value={search}
@@ -58,7 +58,7 @@ const TransactionPage = () => {
         <select
           name=""
           id=""
-          className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white mb-2`}
+          className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white mb-2 md:w-35 md:mr-3 md:flex md:items-center md:m-0`}
           value={chosenCategory}
           onChange={(e) => setChosenCategory(e.target.value)}
         >
@@ -77,7 +77,7 @@ const TransactionPage = () => {
         <select
           name=""
           id=""
-          className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white mb-3`}
+          className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white mb-2 md:w-35 md:mr-3 md:flex md:items-center md:m-0`}
           value={chosenType}
           onChange={(e) => setChosenType(e.target.value)}
         >
@@ -88,7 +88,7 @@ const TransactionPage = () => {
 
         <button
           onClick={handleClick}
-          className={`bg-(--purple) flex items-center justify-start p-2 rounded-full text-white`}
+          className={`bg-(--purple) flex items-center justify-start md:justify-center p-2 rounded-full text-white md:w-25 `}
         >
           <span className="material-symbols-outlined text-[1.1rem]! mr-2">add</span>
           Add

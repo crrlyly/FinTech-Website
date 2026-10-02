@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/authApi";
+import { useUser } from "../../../context/UserContext";
 
 export interface LoginFormDataProps {
   email: string;
@@ -10,6 +11,7 @@ export interface LoginFormDataProps {
 
 const LoginCard = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [formData, setFormData] = useState<LoginFormDataProps>({
     email: "",
     password: "",
@@ -20,6 +22,7 @@ const LoginCard = () => {
 
     try {
       const res = await login(formData);
+      setUser(res.user);
       console.log("Log in succesful", res);
       navigate("/dashboard");
     } catch (error) {

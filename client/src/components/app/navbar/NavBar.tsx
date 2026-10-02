@@ -1,5 +1,6 @@
 import NavButton from "./NavButton";
 import { useUser } from "../../../context/UserContext";
+import { useEffect, useState } from "react";
 
 export type NavButtonProps = {
   setActive: () => void;
@@ -8,13 +9,20 @@ export type NavButtonProps = {
 
 const NavBar = ({ setActive, active }: NavButtonProps) => {
   const { user } = useUser();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const navStates = {
     setActive: setActive,
     active: active,
   };
 
-  
+  useEffect(() => {
+    if (user) {
+      setName(user?.name);
+      setEmail(user?.email);
+    }
+  }, [user]);
 
   return (
     <div
@@ -76,13 +84,11 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
           <div
             className={`inline-flex items-center justify-center w-10 h-10 rounded-full bg-[rgb(33,5,94)]/60 mr-5 uppercase text-(--purple) font-bold`}
           >
-            {user?.name.slice(0, 1)}
+            {name.slice(0, 1)}
           </div>
           <div className={`flex flex-col text-white`}>
-            <span className={`font-bold text-[1rem] capitalize`}>
-              {user?.name}
-            </span>
-            <span className={`text-white/50 text-[.9rem]`}>{user?.email}</span>
+            <span className={`font-bold text-[1rem] capitalize`}>{name}</span>
+            <span className={`text-white/50 text-[.9rem]`}>{email}</span>
           </div>
         </div>
         <NavButton nav={navStates} icon="logout" header="sign out"></NavButton>

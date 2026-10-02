@@ -42,7 +42,7 @@ export async function signup(req, res) {
       [normalizedEmail, passwordHash, name.toLowerCase()],
     );
 
-    req.session.regenerate((error) => {
+    req.session.regenerate(async (error) => {
       if (error) {
         return res.status(500).json({
           error: "Unable to create session.",
@@ -50,6 +50,29 @@ export async function signup(req, res) {
       }
 
       req.session.userId = result.insertId;
+
+      const categories = [
+        "Groceries",
+        "Transportation",
+        "Bills",
+        "Shopping",
+        "Dining",
+        "Entertainment",
+        "Others",
+      ];
+
+      for (const cat of categories) {
+        await db.execute(
+          `
+          INSERT INTO budgets (
+            category,
+            uid
+          )
+          VALUES (?, ?)
+          `,
+          [cat, result.insertId],
+        );
+      }
 
       return res.status(201).json({
         user: {
@@ -76,9 +99,9 @@ export async function login(req, res) {
 
     const [result] = await db.query(
       `
-      SELECT id, password
-      from user
-      where email = ?
+      SELECT id, name, email, password
+      FROM user
+      WHERE email = ?
       LIMIT 1
       `,
       [normalizedEmail],
@@ -118,6 +141,11 @@ export async function login(req, res) {
 
         return res.status(200).json({
           message: "Login successful.",
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          },
         });
       });
     });

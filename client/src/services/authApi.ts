@@ -47,7 +47,7 @@ export async function login(
     throw new Error(data.error || `Request failed with status ${res.status}`);
   }
 
-  return res.json();
+  return data;
 }
 
 export async function logout() {

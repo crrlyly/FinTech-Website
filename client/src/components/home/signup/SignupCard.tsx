@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signUp } from "../../../services/authApi";
 import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../../../context/UserContext";
 
 export type SignupCardFormDataProps = {
   name: string;
@@ -11,6 +12,7 @@ export type SignupCardFormDataProps = {
 
 const SignupCard = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [formData, setFormData] = useState<SignupCardFormDataProps>({
     name: "",
     email: "",
@@ -27,6 +29,7 @@ const SignupCard = () => {
 
     try {
       const res = await signUp(formData);
+      setUser(res.user);
       console.log("Sign up succesful", res);
       navigate("/dashboard");
     } catch (error) {
@@ -115,7 +118,9 @@ const SignupCard = () => {
           Create Account
         </button>
       </form>
-      <div className={`w-full flex justify-center items-center gap-2 text-white/40`}>
+      <div
+        className={`w-full flex justify-center items-center gap-2 text-white/40`}
+      >
         Already have an account?{" "}
         <Link to="/login" className={`text-(--purple)`}>
           {" "}
