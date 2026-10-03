@@ -73,7 +73,7 @@ const AddTransaction = ({
     backdrop-blur-sm justify-center items-center `}
     >
       <div
-        className={`w-full h-auto bg-(--card)/60 backdrop-blur-sm m-5 border border-white/10 rounded-[20px] text-white`}
+        className={`w-full h-auto bg-(--card)/60 backdrop-blur-sm m-5 border border-white/10 rounded-[20px] text-white max-w-120`}
       >
         <div
           className={`w-full h-auto flex items-center justify-between p-5 text-[1.2rem] font-bold`}

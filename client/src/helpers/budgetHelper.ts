@@ -1,12 +1,12 @@
 import type { Budget } from "../models/Budget";
 import type { Transaction } from "../models/Transaction";
 
-export function getPriceByCategory(
+export function getExpenseByCategory(
   transactions: Transaction[],
   category: string,
 ): number {
   return transactions
-    .filter((p) => p.category.toLowerCase() === category.toLowerCase())
+    .filter((p) => p.category.toLowerCase() === category.toLowerCase() && p.type === "expense")
     .reduce((a, t) => a + Number(t.amount), 0);
 }
 

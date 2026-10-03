@@ -1,24 +1,25 @@
 import { useState } from "react";
 import AddTransaction from "../shared/AddTransaction";
-import type { Transaction } from "../../../models/Transaction";
-import { getTransactions } from "../../../services/transactionApi";
 
-const Header = () => {
+
+export type TransactionProps = {
+  loadTransactions: () => Promise<void>;
+};
+
+const Header = ({loadTransactions}: TransactionProps) => {
   const [active, setActive] = useState<boolean>(false);
 
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  // const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  console.log(transactions);
-
-  async function loadTransactions() {
-    try {
-      const { transactions } = await getTransactions();
-      setTransactions(transactions);
-      console.log(transactions);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function loadTransactions() {
+  //   try {
+  //     const { transactions } = await getTransactions();
+  //     setTransactions(transactions);
+  //     console.log(transactions);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   function handleClick() {
     setActive((p) => !p);

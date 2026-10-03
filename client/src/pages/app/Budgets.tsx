@@ -23,7 +23,9 @@ const Budgets = () => {
   }
 
   return (
-    <div className={`bg-(--primary) w-full min-h-dvh pt-20 relative flex flex-col`}>
+    <div
+      className={` w-full min-h-dvh pt-20 lg:pt-18 lg:w-[calc(100%-17.5rem)] relative flex flex-col lg:ml-70 lg:px-5 bg-(--primary)`}
+    >
       <TopNav title="Budgets"></TopNav>
       <BudgetActivate
         activateBudget={activateBudget}

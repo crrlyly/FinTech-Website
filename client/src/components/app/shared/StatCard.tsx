@@ -6,15 +6,29 @@ import {
   getTotalBudgeted,
   unallocatedMoney,
 } from "../../../helpers/budgetHelper";
+import { useEffect, useState } from "react";
+import { getTransactions } from "../../../services/transactionApi";
 
 interface StatCardProps {
   area?: "balance" | "saved" | "available";
-  transactions: Transaction[];
   budgets?: Budget[];
   action?: "income" | "total" | "spent" | "unallocated";
 }
 
-const StatCard = ({ area, transactions, budgets, action }: StatCardProps) => {
+const StatCard = ({ area, budgets, action }: StatCardProps) => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    async function loadTransactions() {
+      const {transactions:t} = await getTransactions();
+      setTransactions(t);
+    }
+
+    loadTransactions();
+  }, []);
+
+
+  console.log(transactions);
   function determineAction(): [string, number] {
     switch (action) {
       case "income":
@@ -56,12 +70,14 @@ const StatCard = ({ area, transactions, budgets, action }: StatCardProps) => {
   return (
     <div
       style={{ gridArea: area }}
-      className={`w-full h-auto bg-(--card) border border-white/10 rounded-[10px] p-3 text-white`}
+      className={`w-full h-auto bg-(--card) border border-white/10 rounded-[10px] p-3 text-white lg:p-5`}
     >
-      <div className={`text-(--greyText)`}>
+      <div className={`text-(--greyText) lg:text-[1.2rem]`}>
         {action ? determineAction()[0] : determineAction2()[0]}
       </div>
-      <div className={`text-2xl font-bold`}>${action ? determineAction()[1] : determineAction2()[1]}</div>
+      <div className={`text-2xl font-bold lg:text-4xl`}>
+        ${action ? determineAction()[1] : determineAction2()[1]}
+      </div>
     </div>
   );
 };

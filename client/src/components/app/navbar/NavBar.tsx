@@ -28,7 +28,7 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
     <div
       className={`
         ${active ? "fixed" : "hidden"}
-        z-70 w-70 h-dvh bg-(--card) top-0 left-0 flex flex-col
+        z-70 w-70 h-dvh bg-(--card) top-0 left-0 flex flex-col lg:flex lg:fixed lg:top-0
         `}
     >
       <div
@@ -42,7 +42,7 @@ const NavBar = ({ setActive, active }: NavButtonProps) => {
         <span className={`text-white font-semibold text-[1.2rem]`}>ault</span>
         <button
           onClick={() => setActive()}
-          className={`absolute right-3 top-5 cursor-pointer text-white/60`}
+          className={`absolute right-3 top-5 cursor-pointer text-white/60 lg:hidden`}
         >
           <span className="material-symbols-outlined">close</span>
         </button>

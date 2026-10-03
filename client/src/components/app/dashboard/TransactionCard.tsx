@@ -2,7 +2,7 @@ import type { Transaction } from "../../../models/Transaction";
 const TransactionCard = ({ transaction }: { transaction: Transaction }) => {
   return (
     <div
-      className={`w-[90%] h-auto bg-(--card) hover:bg-white/5 -2 flex justify-between items-center text-white p-2 rounded-md`}
+      className={`w-[90%] h-auto bg-(--card) hover:bg-white/5 flex justify-between items-center text-white p-2 rounded-md lg:w-full`}
     >
       <div className={`flex items-center`}>
         <span

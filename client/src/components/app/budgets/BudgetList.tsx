@@ -4,7 +4,7 @@ import type { Budget } from "../../../models/Budget";
 import { useEffect, useState } from "react";
 import type { Transaction } from "../../../models/Transaction";
 import { getTransactions } from "../../../services/transactionApi";
-import { getPriceByCategory } from "../../../helpers/budgetHelper";
+import { getExpenseByCategory } from "../../../helpers/budgetHelper";
 import type { GetActivationProp } from "../../../pages/app/Budgets";
 
 const BudgetList = ({ activateBudget }: GetActivationProp) => {
@@ -15,7 +15,6 @@ const BudgetList = ({ activateBudget }: GetActivationProp) => {
     try {
       const { budgets: loadedBudgets } = await getBudgets();
       setBudgets(loadedBudgets);
-      console.log(loadedBudgets);
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +25,6 @@ const BudgetList = ({ activateBudget }: GetActivationProp) => {
       try {
         const { transactions } = await getTransactions();
         setTransactions(transactions);
-        console.log(transactions);
       } catch (error) {
         console.error(error);
       }
@@ -39,9 +37,7 @@ const BudgetList = ({ activateBudget }: GetActivationProp) => {
       className={`${activateBudget ? "flex" : "hidden"} w-full h-auto bg-(--primary) p-5 flex-col items-center flex-1 gap-5`}
     >
       {budgets.map((b) => {
-        const usedMoney: number = getPriceByCategory(transactions, b.category);
-        console.log(transactions);
-        console.log(usedMoney);
+        const usedMoney: number = getExpenseByCategory(transactions, b.category);
         return (
           <BudgetCard
             key={b.bid}

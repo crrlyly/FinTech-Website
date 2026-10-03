@@ -2,7 +2,7 @@ import StatisticCard from "./StatisticCard";
 
 const Statistics = () => {
   return (
-    <div className={`bg-(--primary) w-full h-auto flex flex-col p-5 gap-5 md:grid md:grid-cols-2`}>
+    <div className={`bg-(--primary) w-full h-auto flex flex-col p-5 gap-5 md:grid md:grid-cols-2 lg:flex lg:flex-row`}>
       <StatisticCard></StatisticCard>
       <StatisticCard></StatisticCard>
       <StatisticCard></StatisticCard>

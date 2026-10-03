@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -7,44 +8,129 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import type { Transaction } from "../../../models/Transaction";
+import { getTransactions } from "../../../services/transactionApi";
+import type { TransactionProps } from "./Header";
 
-const data = [
-  { month: "Jan", income: 4000, expenses: 2500 },
-  { month: "Feb", income: 4200, expenses: 3100 },
-  { month: "Mar", income: 3900, expenses: 2700 },
-  { month: "Apr", income: 4500, expenses: 3200 },
-  { month: "May", income: 4800, expenses: 2900 },
-  { month: "Jun", income: 4600, expenses: 3400 },
-];
+interface Data {
+  month: string;
+  income: number;
+  expenses: number;
+}
 
-const SpendingGraph = () => {
+interface YearlyTransactionStatsMap {
+  [month: string]: Data;
+}
+
+const SpendingGraph = ({loadTransactions}: TransactionProps) => {
+  const [yearlyTransactions, setYearlyTransactions] = useState<Data[]>([]);
+  const currentYear: number = new Date().getFullYear();
+
+  useEffect((): void => {
+    async function loadYearlyStats(): Promise<void> {
+      try {
+        const { transactions }: { transactions: Transaction[] } =
+          await getTransactions();
+        const monthsOrder: string[] = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        const groupedMap: YearlyTransactionStatsMap = transactions
+          .filter(
+            (t: Transaction): boolean =>
+              t.date.slice(0, 4) === String(currentYear),
+          )
+          .sort(
+            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+          )
+          .reduce<YearlyTransactionStatsMap>(
+            (
+              acc: YearlyTransactionStatsMap,
+              tx: Transaction,
+            ): YearlyTransactionStatsMap => {
+              // Gets short month name
+              const date: Date = new Date(tx.date);
+              const month: string = monthsOrder[date.getMonth()];
+
+              // Initialize the month grouping if it doesn't exist
+              if (!acc[month]) {
+                acc[month] = { month, income: 0, expenses: 0 };
+              }
+
+              // Aggregate amounts dynamically based on transaction type
+              if (tx.type === "income") {
+                acc[month].income += Number(tx.amount);
+              } else if (tx.type === "expense") {
+                acc[month].expenses += Number(tx.amount); // mapping 'expense' type to your 'expenses' key
+              }
+
+              return acc;
+            },
+            {},
+          );
+        setYearlyTransactions(Object.values(groupedMap)); // turns the object into an array
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadYearlyStats();
+  }, []);
+
+  console.log(yearlyTransactions);
   return (
-    <div className={`w-full h-100 flex justify-center items-center bg-(--primary)`}>
-      <div className={`w-[90%] h-[90%] p-10 rounded-2xl bg-(--card) border border-white/10`}>
-        <span className={`text-[1.1rem] text-white`}>Spending overview</span>
+    <div
+      className={`w-full h-100 flex justify-center items-center bg-(--primary) lg:h-full lg:col-span-2`}
+    >
+      <div
+        className={`w-[90%] h-[90%] p-10 rounded-2xl bg-(--card) border border-white/10 lg:w-full lg:h-full`}
+      >
+        <span
+          className={`text-[1.1rem] text-white lg:text-[1.3rem] lg:font-bold`}
+        >
+          Yearly Spending Overview
+        </span>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data}>
+          <AreaChart data={yearlyTransactions}>
             <defs>
               <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#22c55e" stopOpacity={0.4} />
+                <stop offset="0%" stopColor="#22c0c5" stopOpacity={0.4} />
 
-                <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+                <stop offset="100%" stopColor="(#22c0c5)" stopOpacity={0} />
               </linearGradient>
 
               <linearGradient id="outcomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#ef4444" stopOpacity={0.4} />
+                <stop offset="0%" stopColor="var(--purple)" stopOpacity={0.4} />
 
-                <stop offset="100%" stopColor="#ef4444" stopOpacity={0} />
+                <stop offset="100%" stopColor="var(--purple)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3"></CartesianGrid>
-            <XAxis dataKey="month"></XAxis>
+            <CartesianGrid
+              strokeDasharray="5 5"
+              stroke="#ffffff"
+              strokeOpacity={0.1}
+            ></CartesianGrid>
+            <XAxis
+              dataKey="month"
+              padding={{ left: 7, right: 7 }}
+              tick={{ fill: "#ffffff80" }}
+            ></XAxis>
             {/* <YAxis /> */}
             <Tooltip />
             <Area
               type="monotone"
               dataKey="income"
-              stroke="#22c55e"
+              stroke="#22c0c5"
               strokeWidth={3}
               fill="url(#incomeGradient)"
             ></Area>
@@ -52,7 +138,7 @@ const SpendingGraph = () => {
             <Area
               type="monotone"
               dataKey="expenses"
-              stroke="#ef4444"
+              stroke="var(--purple)"
               strokeWidth={3}
               fill="url(#outcomeGradient)"
             />
