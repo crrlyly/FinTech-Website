@@ -39,7 +39,7 @@ const Dashboard = () => {
       </div>
 
       <div className={`block lg:hidden`}>
-        <SpendingGraph></SpendingGraph>
+        <SpendingGraph loadTransactions={loadTransactions}></SpendingGraph>
         <CurrencyConverter></CurrencyConverter>
         <RecentTransactions></RecentTransactions>
         <InvestmentCalculator></InvestmentCalculator>

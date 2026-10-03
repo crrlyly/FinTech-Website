@@ -12,7 +12,7 @@ const Ratio = ({ usedMoney, budget, goal, percent }: RatioProps) => {
   return (
     <>
       <div className={`flex justify-between items-center mt-5 text-[1.2rem]`}>
-        <span>${usedMoney.toFixed(2)}</span>
+        <span>${Number(usedMoney).toFixed(2)}</span>
         <span className={`text-(--greyText)`}>
           of ${budget ? budget.maxAmount : goal?.goalAmount}
         </span>
