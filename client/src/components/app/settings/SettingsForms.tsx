@@ -25,7 +25,7 @@ const SettingsForms = () => {
   };
 
   return (
-    <div className={`w-full h-auto bg-(--primary) p-5`}>
+    <div className={`w-full h-auto bg-(--primary) p-5 lg:max-w-200`}>
       <div
         className={`w-full h-auto bg-(--card) border border-white/10 rounded-[20px] p-5`}
       >

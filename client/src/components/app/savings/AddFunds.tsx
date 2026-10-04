@@ -40,10 +40,10 @@ const AddFunds = ({ active, handleClick, goal, loadGoals }: AddFundsProps) => {
 
   return (
     <div
-      className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-(--primary)/30 backdrop-blur-sm justify-center items-center `}
+      className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-(--primary)/30 backdrop-blur-sm justify-center items-center`}
     >
       <div
-        className={`w-full h-auto m-5 flex flex-col p-5 border border-white/10 bg-(--card)/60 backdrop-blur-sm rounded-[15px]`}
+        className={`w-full h-auto m-5 flex flex-col p-5 border border-white/10 bg-(--card)/60 backdrop-blur-sm rounded-[15px] lg:max-w-120`}
       >
         <div
           className={`flex justify-between text-white text-[1.2rem] font-bold mb-3`}
@@ -62,7 +62,7 @@ const AddFunds = ({ active, handleClick, goal, loadGoals }: AddFundsProps) => {
               value={newGoal}
               onChange={(e) => setNewGoal(e.target.value)}
               type="number"
-              className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1`}
+              className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 lg:mb-5`}
             />
           </div>
           <button

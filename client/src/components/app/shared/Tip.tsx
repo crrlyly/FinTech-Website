@@ -6,7 +6,9 @@ type TipProps = {
 const Tip = ({ activateBudget, tipString }: TipProps) => {
   return (
     <div
-      className={`${activateBudget ? "block" : "hidden"} w-full h-auto bg-(--primary) text-(--greyText) p-5`}
+      className={`${
+        activateBudget === false ? "hidden" : "block"
+      } w-full h-auto bg-(--primary) text-(--greyText) p-5`}
     >
       {tipString}
     </div>

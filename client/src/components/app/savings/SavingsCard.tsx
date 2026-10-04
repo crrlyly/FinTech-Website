@@ -31,7 +31,7 @@ const SavingsCard = ({ goal, loadGoals }: SavingsCardProps) => {
   return (
     <>
       <div
-        className={`w-full min-h-60 h-auto bg-(--card) border border-white/10 rounded-[15px] p-5 text-white`}
+        className={`w-full min-h-60 h-auto bg-(--card) border border-white/10 rounded-[15px] p-5 text-white lg:max-h-70`}
       >
         <div className={`flex justify-between items-center mb-5`}>
           <div className={`flex items-center text-[1.1rem] font-bold`}>

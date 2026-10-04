@@ -37,7 +37,7 @@ const NavButton = ({ icon, header, nav }: LinkProps) => {
       to={header === "sign out" ? `/` : `/${header.toLowerCase()}`}
       className={`
     mx-3 rounded-2xl p-2 flex justify-start items-center pl-3
-    transition-colors duration-150 ease-in
+    transition-colors duration-150 ease-in lg:text-[1.1rem]
     ${
       isActive
         ? "bg-[rgb(33,5,94)]/60 text-(--purple)"

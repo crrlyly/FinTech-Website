@@ -42,16 +42,17 @@ const RecentTransactions = () => {
         <div
           className={`w-full min-h-50 bg-(--card) flex flex-col items-center gap-5 p-5 text-white`}
         >
-          {transactions.length > 0
-            ? transactions
-                .slice(-4)
-                .map((t) => (
-                  <TransactionCard
-                    key={t.tid}
-                    transaction={t}
-                  ></TransactionCard>
-                ))
-            : (<div className={`self-start text-(--greyText) ml-2`}>Please add transactions.</div>)}
+          {transactions.length > 0 ? (
+            transactions
+              .slice(0, 4)
+              .map((t) => (
+                <TransactionCard key={t.tid} transaction={t}></TransactionCard>
+              ))
+          ) : (
+            <div className={`self-start text-(--greyText) ml-2`}>
+              Please add transactions.
+            </div>
+          )}
         </div>
       </div>
     </div>
