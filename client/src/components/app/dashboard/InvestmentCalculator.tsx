@@ -34,10 +34,10 @@ const InvestmentCalculator = () => {
 
   return (
     <div
-      className={`w-full h-auto bg-(--primary) flex justify-center items-center lg:h-full `}
+      className={`w-full h-auto bg-(--primary) flex justify-center items-center lg:h-full lg:p-5`}
     >
       <div
-        className={`w-full m-5 h-auto bg-(--card) rounded-2xl border border-white/10 text-white p-7 lg:m-0`}
+        className={`w-full m-5 h-auto bg-(--card) rounded-2xl border border-white/10 text-white p-7 lg:m-0 lg:h-full`}
       >
         <div className={`flex items-center text-[1.2rem] font-bold mb-5`}>
           <span className="material-symbols-outlined text-green-500 mr-3">

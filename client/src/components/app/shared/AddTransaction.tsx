@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import type { TransactionFormData } from "../../../models/Transaction";
 import type { Transaction } from "../../../models/Transaction";
-import { addTransaction } from "../../../services/transactionApi";
-import { updateTransaction } from "../../../services/transactionApi";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 type AddTransactionProps = {
   active: boolean;
   handleClick: () => void;
   existingTransaction?: Transaction;
-  loadTransactions: () => Promise<void>;
 };
 
 const AddTransaction = ({
   active,
   handleClick,
   existingTransaction,
-  loadTransactions,
 }: AddTransactionProps) => {
+  const addTransaction = useTransactionStore((s) => s.addStoreTransactions);
+  const updateTransaction = useTransactionStore(
+    (s) => s.updateStoreTransaction,
+  );
+
   const [formData, setFormData] = useState<TransactionFormData>({
     tid: existingTransaction ? Number(existingTransaction.tid) : undefined,
     type: existingTransaction ? existingTransaction.type : "expense",
@@ -38,16 +40,10 @@ const AddTransaction = ({
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      let res: Transaction;
       if (existingTransaction) {
-        res = await updateTransaction(formData);
+        await updateTransaction(formData);
       } else {
-        res = await addTransaction(formData);
-      }
-
-      console.log("Response:", res);
-      if (loadTransactions) {
-        await loadTransactions();
+        await addTransaction(formData);
       }
     } catch (error) {
       console.error(error);

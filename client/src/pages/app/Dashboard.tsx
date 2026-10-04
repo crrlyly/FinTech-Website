@@ -5,45 +5,28 @@ import SpendingGraph from "../../components/app/dashboard/SpendingGraph";
 import CurrencyConverter from "../../components/app/dashboard/CurrencyConverter";
 import RecentTransactions from "../../components/app/dashboard/RecentTransactions";
 import InvestmentCalculator from "../../components/app/dashboard/InvestmentCalculator";
-import { useEffect, useState } from "react";
-import type { Transaction } from "../../models/Transaction";
-import { getTransactions } from "../../services/transactionApi";
 
 const Dashboard = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  async function loadTransactions() {
-    try {
-      const { transactions } = await getTransactions();
-      setTransactions(transactions);
-      console.log(transactions);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    loadTransactions();
-  }, []);
+  
 
   return (
     <div
       className={`w-full min-h-dvh pt-20 lg:pt-18 relative lg:ml-70 lg:w-[calc(100%-17.5rem)] bg-(--primary) lg:px-5`}
     >
       <TopNav title="Dashboard"></TopNav>
-      <Header loadTransactions={loadTransactions}></Header>
-      <Statistics transactions={transactions}></Statistics>
+      <Header></Header>
+      <Statistics></Statistics>
       <div
         className={`hidden lg:grid grid-cols-3 grid-rows-2 gap-10 mx-5 mt-5`}
       >
-        <SpendingGraph loadTransactions={loadTransactions}></SpendingGraph>
+        <SpendingGraph></SpendingGraph>
         <CurrencyConverter></CurrencyConverter>
         <RecentTransactions></RecentTransactions>
         <InvestmentCalculator></InvestmentCalculator>
       </div>
 
       <div className={`block lg:hidden`}>
-        <SpendingGraph loadTransactions={loadTransactions}></SpendingGraph>
+        <SpendingGraph></SpendingGraph>
         <CurrencyConverter></CurrencyConverter>
         <RecentTransactions></RecentTransactions>
         <InvestmentCalculator></InvestmentCalculator>

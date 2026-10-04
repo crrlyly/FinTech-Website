@@ -1,8 +1,9 @@
 import AddTransaction from "../shared/AddTransaction";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TransactionList from "./TransactionList";
 import type { Transaction } from "../../../models/Transaction";
-import { getTransactions } from "../../../services/transactionApi";
+// import { getTransactions } from "../../../services/transactionApi";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 const TransactionPage = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -10,7 +11,7 @@ const TransactionPage = () => {
   const [search, setSearch] = useState<string>("");
   const [chosenCategory, setChosenCategory] = useState<string>("all");
   const [chosenType, setChosenType] = useState<string>("all");
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const transactions = useTransactionStore((s) => s.transactions);
 
   const filteredTransactions: Transaction[] = transactions
     .filter((transaction) =>
@@ -23,20 +24,6 @@ const TransactionPage = () => {
     .filter(
       (transaction) => transaction.type === chosenType || chosenType === "all",
     );
-
-  async function loadTransactions() {
-    try {
-      const { transactions } = await getTransactions();
-      setTransactions(transactions);
-      console.log(transactions);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    loadTransactions();
-  }, []);
 
   const handleClick = () => {
     setActive((p) => !p);
@@ -90,20 +77,18 @@ const TransactionPage = () => {
           onClick={handleClick}
           className={`bg-(--purple) flex items-center justify-start md:justify-center p-2 rounded-full text-white md:w-25 md:self-end md:ml-auto`}
         >
-          <span className="material-symbols-outlined text-[1.1rem]! mr-2">add</span>
+          <span className="material-symbols-outlined text-[1.1rem]! mr-2">
+            add
+          </span>
           Add
         </button>
       </div>
       <AddTransaction
         active={active}
         handleClick={handleClick}
-        loadTransactions={loadTransactions}
       ></AddTransaction>
 
-      <TransactionList
-        loadTransactions={loadTransactions}
-        transactionList={filteredTransactions}
-      ></TransactionList>
+      <TransactionList transactionList={filteredTransactions}></TransactionList>
     </>
   );
 };

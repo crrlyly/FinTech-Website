@@ -1,12 +1,12 @@
-import type { Transaction } from "../../../models/Transaction";
+// import type { Transaction } from "../../../models/Transaction";
 import {
   getMonthlyExpenses,
   getMonthlyIncome,
   getTotalBalance,
 } from "../../../helpers/dashboardHelpers";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 type StatisticCardProps = {
-  transactions: Transaction[];
   job: string;
 };
 
@@ -15,10 +15,10 @@ type StatResult = {
   percentage?: number;
 };
 
-const StatisticCard = ({ transactions, job }: StatisticCardProps) => {
+const StatisticCard = ({ job }: StatisticCardProps) => {
+  const transactions = useTransactionStore((s) => s.transactions);
   function jobAction(): StatResult {
     if (job === "total balance") {
-      console.log(transactions);
       return {
         value: getTotalBalance(transactions),
       };

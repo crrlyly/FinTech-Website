@@ -13,20 +13,27 @@ import Settings from "./pages/app/Settings";
 import Login from "./pages/home/Login";
 import Signup from "./pages/home/Signup";
 
+import AppLayout from "./components/app/AppLayout";
+
 function App() {
   return (
     <UserProvider>
       <Router>
         <div>
           <Routes>
-            <Route path="/" element={<Navigate to="/login" replace/>} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/transactions" element={<Transaction />} />
-            <Route path="/budgets" element={<Budgets />} />\
-            <Route path="/savings" element={<Savings />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/signup" element={<Signup />} />
+
+            {/* Logged in pages */}
+            <Route element={<AppLayout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/transactions" element={<Transaction />} />
+              <Route path="/budgets" element={<Budgets />} />
+              <Route path="/savings" element={<Savings />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Route>
           </Routes>
         </div>
       </Router>

@@ -3,13 +3,9 @@ import type { Transaction } from "../../../models/Transaction";
 
 type TransactionListProps = {
   transactionList: Transaction[];
-  loadTransactions: () => Promise<void>;
 };
 
-const TransactionList = ({
-  transactionList,
-  loadTransactions,
-}: TransactionListProps) => {
+const TransactionList = ({ transactionList }: TransactionListProps) => {
   let count = 0;
 
   return (
@@ -30,7 +26,6 @@ const TransactionList = ({
         if (count === transactionList.length) {
           return (
             <TransactionCard
-              loadTransactions={loadTransactions}
               key={transaction.tid}
               transaction={transaction}
               last={true}
@@ -39,7 +34,6 @@ const TransactionList = ({
         }
         return (
           <TransactionCard
-            loadTransactions={loadTransactions}
             key={transaction.tid}
             transaction={transaction}
           ></TransactionCard>

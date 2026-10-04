@@ -21,7 +21,6 @@ const BudgetCard = ({ budget, usedMoney, loadBudgets }: BudgetCardProps) => {
 
   function handleClick() {
     setEditActive((p) => !p);
-    console.log(budget);
   }
 
   return (

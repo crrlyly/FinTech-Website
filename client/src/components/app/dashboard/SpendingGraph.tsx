@@ -9,8 +9,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import type { Transaction } from "../../../models/Transaction";
-import { getTransactions } from "../../../services/transactionApi";
-import type { TransactionProps } from "./Header";
+// import { getTransactions } from "../../../services/transactionApi";
+// import type { TransactionProps } from "./Header";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 interface Data {
   month: string;
@@ -22,15 +23,17 @@ interface YearlyTransactionStatsMap {
   [month: string]: Data;
 }
 
-const SpendingGraph = ({loadTransactions}: TransactionProps) => {
+const SpendingGraph = () => {
   const [yearlyTransactions, setYearlyTransactions] = useState<Data[]>([]);
   const currentYear: number = new Date().getFullYear();
+  const transactions = useTransactionStore((s) => s.transactions);
 
   useEffect((): void => {
     async function loadYearlyStats(): Promise<void> {
       try {
-        const { transactions }: { transactions: Transaction[] } =
-          await getTransactions();
+        // const { transactions }: { transactions: Transaction[] } =
+        //   await getTransactions();
+
         const monthsOrder: string[] = [
           "Jan",
           "Feb",
@@ -85,65 +88,81 @@ const SpendingGraph = ({loadTransactions}: TransactionProps) => {
     }
 
     loadYearlyStats();
-  }, []);
+  }, [transactions, currentYear]);
 
-  console.log(yearlyTransactions);
   return (
     <div
-      className={`w-full h-100 flex justify-center items-center bg-(--primary) lg:h-full lg:col-span-2`}
+      className={`w-full h-100 flex justify-center items-center bg-(--primary) lg:h-full lg:col-span-2 p-5`}
     >
       <div
-        className={`w-[90%] h-[90%] p-10 rounded-2xl bg-(--card) border border-white/10 lg:w-full lg:h-full`}
+        className={`w-full p-10 rounded-2xl bg-(--card) border border-white/10`}
       >
         <span
           className={`text-[1.1rem] text-white lg:text-[1.3rem] lg:font-bold`}
         >
           Yearly Spending Overview
         </span>
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={yearlyTransactions}>
-            <defs>
-              <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#22c0c5" stopOpacity={0.4} />
 
-                <stop offset="100%" stopColor="(#22c0c5)" stopOpacity={0} />
-              </linearGradient>
+        <div className={`w-full h-60 lg:h-100`}>
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={yearlyTransactions}>
+              <defs>
+                <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#22c0c5" stopOpacity={0.4} />
 
-              <linearGradient id="outcomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--purple)" stopOpacity={0.4} />
+                  <stop offset="100%" stopColor="(#22c0c5)" stopOpacity={0} />
+                </linearGradient>
 
-                <stop offset="100%" stopColor="var(--purple)" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid
-              strokeDasharray="5 5"
-              stroke="#ffffff"
-              strokeOpacity={0.1}
-            ></CartesianGrid>
-            <XAxis
-              dataKey="month"
-              padding={{ left: 7, right: 7 }}
-              tick={{ fill: "#ffffff80" }}
-            ></XAxis>
-            {/* <YAxis /> */}
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="income"
-              stroke="#22c0c5"
-              strokeWidth={3}
-              fill="url(#incomeGradient)"
-            ></Area>
+                <linearGradient
+                  id="outcomeGradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop
+                    offset="0%"
+                    stopColor="var(--purple)"
+                    stopOpacity={0.4}
+                  />
 
-            <Area
-              type="monotone"
-              dataKey="expenses"
-              stroke="var(--purple)"
-              strokeWidth={3}
-              fill="url(#outcomeGradient)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+                  <stop
+                    offset="100%"
+                    stopColor="var(--purple)"
+                    stopOpacity={0}
+                  />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                strokeDasharray="5 5"
+                stroke="#ffffff"
+                strokeOpacity={0.1}
+              ></CartesianGrid>
+              <XAxis
+                dataKey="month"
+                padding={{ left: 7, right: 7 }}
+                tick={{ fill: "#ffffff80" }}
+              ></XAxis>
+              {/* <YAxis /> */}
+              <Tooltip />
+              <Area
+                type="monotone"
+                dataKey="income"
+                stroke="#22c0c5"
+                strokeWidth={3}
+                fill="url(#incomeGradient)"
+              ></Area>
+
+              <Area
+                type="monotone"
+                dataKey="expenses"
+                stroke="var(--purple)"
+                strokeWidth={3}
+                fill="url(#outcomeGradient)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,11 @@
 import type { Budget } from "../../../models/Budget";
-import type { Transaction } from "../../../models/Transaction";
 import {
   getExpense,
   getIncome,
   getTotalBudgeted,
   unallocatedMoney,
 } from "../../../helpers/budgetHelper";
-import { useEffect, useState } from "react";
-import { getTransactions } from "../../../services/transactionApi";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 interface StatCardProps {
   area?: "balance" | "saved" | "available";
@@ -16,17 +14,7 @@ interface StatCardProps {
 }
 
 const StatCard = ({ area, budgets, action }: StatCardProps) => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    async function loadTransactions() {
-      const {transactions:t} = await getTransactions();
-      setTransactions(t);
-    }
-
-    loadTransactions();
-  }, []);
-
+  const transactions = useTransactionStore((s) => s.transactions);
 
   console.log(transactions);
   function determineAction(): [string, number] {

@@ -1,25 +1,9 @@
 import { useState } from "react";
 import AddTransaction from "../shared/AddTransaction";
+// import { useTransactionStore } from "../../../stores/TransactionStore";
 
-
-export type TransactionProps = {
-  loadTransactions: () => Promise<void>;
-};
-
-const Header = ({loadTransactions}: TransactionProps) => {
+const Header = () => {
   const [active, setActive] = useState<boolean>(false);
-
-  // const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  // async function loadTransactions() {
-  //   try {
-  //     const { transactions } = await getTransactions();
-  //     setTransactions(transactions);
-  //     console.log(transactions);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   function handleClick() {
     setActive((p) => !p);
@@ -44,7 +28,7 @@ const Header = ({loadTransactions}: TransactionProps) => {
       <AddTransaction
         active={active}
         handleClick={handleClick}
-        loadTransactions={loadTransactions}
+        // loadTransactions={loadTransactions}
       ></AddTransaction>
     </>
   );

@@ -37,7 +37,7 @@ const CurrencyConverter = () => {
   // tsx code
   return (
     <div
-      className={`w-full h-auto bg-(--primary) flex justify-center items-center p-5 lg:p-0 lg:h-full`}
+      className={`w-full h-auto bg-(--primary) flex justify-center items-center p-5 lg:h-full`}
     >
       <div
         className={`w-full h-auto bg-(--card) rounded-2xl text-white p-7 border border-white/10 lg:h-full lg:p-10`}
@@ -93,7 +93,7 @@ const CurrencyConverter = () => {
             </div>
           </div>
           <div
-            className={`grid grid-cols-3 text-(--greyText) bg-(--purple)/10  rounded-[5px] px-3 py-2 mt-5 lg:py-3`}
+            className={`grid grid-cols-3 text-(--greyText) bg-(--purple)/10 rounded-[5px] px-3 py-2 mt-5 lg:py-3`}
           >
             <div className={`w-full flex justify-start items-center`}>
               {changeCurrencySymbol(Number(amount), from)}

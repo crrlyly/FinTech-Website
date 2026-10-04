@@ -1,29 +1,15 @@
 import { Link } from "react-router-dom";
 import TransactionCard from "./TransactionCard";
-import { useEffect, useState } from "react";
-import { getTransactions } from "../../../services/transactionApi";
-import type { Transaction } from "../../../models/Transaction";
+// import { getTransactions } from "../../../services/transactionApi";
+// import type { Transaction } from "../../../models/Transaction";
+import { useTransactionStore } from "../../../stores/TransactionStore";
 
 const RecentTransactions = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    async function loadTransactions() {
-      try {
-        const { transactions } = await getTransactions();
-        setTransactions(transactions);
-        console.log(transactions);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadTransactions();
-  }, []);
+  const transactions = useTransactionStore((s) => s.transactions);
 
   return (
     <div
-      className={`w-full h-auto bg-(--primary) flex justify-center items-center p-5 lg:col-span-2 lg:h-full lg:p-0`}
+      className={`w-full h-auto bg-(--primary) flex justify-center items-center p-5 lg:col-span-2 lg:h-full`}
     >
       <div
         className={`w-full h-auto bg-(--card) flex flex-col rounded-2xl border border-white/10 lg:h-full`}
