@@ -1,11 +1,7 @@
 import { useState } from "react";
 import AddSavings from "./AddSavings";
 
-type SavingsHeaderProps = {
-  loadGoals: () => Promise<void>;
-};
-
-const SavingsHeader = ({ loadGoals }: SavingsHeaderProps) => {
+const SavingsHeader = () => {
   const [active, setActive] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -22,7 +18,7 @@ const SavingsHeader = ({ loadGoals }: SavingsHeaderProps) => {
         </span>
         <button
           onClick={handleClick}
-          className={`bg-(--purple) rounded-full text-white flex items-center p-1`}
+          className={`bg-(--purple) rounded-full text-white flex items-center p-1 lg:p-2 lg:px-5`}
         >
           <span className="material-symbols-outlined">add</span>
           New goal
@@ -31,7 +27,6 @@ const SavingsHeader = ({ loadGoals }: SavingsHeaderProps) => {
       <AddSavings
         active={active}
         handleClick={handleClick}
-        loadGoals={loadGoals}
       ></AddSavings>
     </>
   );

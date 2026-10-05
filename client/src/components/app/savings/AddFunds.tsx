@@ -1,26 +1,24 @@
 import { useEffect, useState } from "react";
 import type { Goal } from "../../../models/Goal";
-import { updateGoal } from "../../../services/goalApi";
+import { useGoalStore } from "../../../stores/GoalStore";
 
 type AddFundsProps = {
   active: boolean;
   handleClick: () => void;
   goal: Goal;
-  loadGoals: () => void;
 };
 
-const AddFunds = ({ active, handleClick, goal, loadGoals }: AddFundsProps) => {
+const AddFunds = ({ active, handleClick, goal }: AddFundsProps) => {
+  const updateGoal = useGoalStore((s) => s.updateStoreGoals);
   const [newGoal, setNewGoal] = useState<string>("");
 
   async function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const { message } = await updateGoal({
+      updateGoal({
         ...goal,
         currAmount: Number(goal.currAmount) + Number(newGoal),
       });
-      loadGoals();
-      console.log(message);
     } catch (error) {
       console.error(error);
     }

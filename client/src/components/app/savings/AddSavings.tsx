@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import type { GoalFormData } from "../../../models/Goal";
-import { addGoal } from "../../../services/goalApi";
+import { useGoalStore } from "../../../stores/GoalStore";
 
 type AddSavingsProps = {
   active: boolean;
   handleClick: () => void;
-  loadGoals: () => Promise<void>;
 };
 
-const AddSavings = ({ active, handleClick, loadGoals }: AddSavingsProps) => {
+const AddSavings = ({ active, handleClick}: AddSavingsProps) => {
+  const addGoal = useGoalStore((s) => s.addStoreGoals);
   const [formData, setFormData] = useState<GoalFormData>({
     name: "",
     targetDate: "",
@@ -19,9 +19,7 @@ const AddSavings = ({ active, handleClick, loadGoals }: AddSavingsProps) => {
   const submit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { gid, message } = await addGoal(formData);
-      loadGoals();
-      console.log(gid, message);
+      addGoal(formData);
     } catch (error) {
       console.error(error);
     }

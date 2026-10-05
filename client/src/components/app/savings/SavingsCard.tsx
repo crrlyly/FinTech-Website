@@ -1,16 +1,16 @@
 import Ratio from "../shared/Ratio";
 import type { Goal } from "../../../models/Goal";
-import { deleteGoal } from "../../../services/goalApi";
 import AddFunds from "./AddFunds";
 import { useState } from "react";
+import { useGoalStore } from "../../../stores/GoalStore";
 
 type SavingsCardProps = {
-  loadGoals: () => Promise<void>;
   goal: Goal;
 };
 
-const SavingsCard = ({ goal, loadGoals }: SavingsCardProps) => {
+const SavingsCard = ({ goal }: SavingsCardProps) => {
   const percent = (goal.currAmount / goal.goalAmount) * 100;
+  const deleteGoal = useGoalStore((s) => s.deleteStoreGoals);
 
   const [active, setActive] = useState<boolean>(false);
 
@@ -20,9 +20,7 @@ const SavingsCard = ({ goal, loadGoals }: SavingsCardProps) => {
 
   async function handleDelete() {
     try {
-      const { message } = await deleteGoal(goal.gid);
-      loadGoals();
-      console.log(message);
+      deleteGoal(goal.gid);
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +65,6 @@ const SavingsCard = ({ goal, loadGoals }: SavingsCardProps) => {
         active={active}
         handleClick={handleClick}
         goal={goal}
-        loadGoals={loadGoals}
       ></AddFunds>
     </>
   );

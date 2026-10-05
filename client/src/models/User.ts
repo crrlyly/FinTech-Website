@@ -4,4 +4,6 @@ export interface User {
   email: string;
   created_on: string;
   updated_on?: string;
+  autoActivateBudget: boolean;
+  activateBudget: boolean;
 }

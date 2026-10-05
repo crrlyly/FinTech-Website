@@ -1,44 +1,28 @@
 import BudgetCard from "./BudgetCard";
-import { getBudgets } from "../../../services/budgetApi";
-import type { Budget } from "../../../models/Budget";
-import { useEffect, useState } from "react";
 import { getExpenseByCategory } from "../../../helpers/budgetHelper";
-import type { GetActivationProp } from "../../../pages/app/Budgets";
 import { useTransactionStore } from "../../../stores/TransactionStore";
+import { useBudgetStore } from "../../../stores/BudgetStore";
+import { useBudgetUIStore } from "../../../stores/BudgetUIStore";
 
-const BudgetList = ({ activateBudget }: GetActivationProp) => {
-  const [budgets, setBudgets] = useState<Budget[]>([]);
+const BudgetList = () => {
   const transactions = useTransactionStore((s) => s.transactions);
+  const budgets = useBudgetStore((s) => s.budgets);
+  const activateBudget = useBudgetUIStore((s) => s.activateBudget);
+  const checkEveryMonthActive = useBudgetUIStore((s) => s.activateEveryMonth);
 
-  async function loadBudgets() {
-    try {
-      const { budgets: loadedBudgets } = await getBudgets();
-      setBudgets(loadedBudgets);
-    } catch (error) {
-      console.error(error);
-    }
+  function isEveryMonthOn() {
+    return checkEveryMonthActive || activateBudget ? "flex lg:grid" : "hidden";
   }
-
-  useEffect(() => {
-    loadBudgets();
-  }, []);
   return (
     <div
-      className={`${activateBudget ? "flex" : "hidden"} w-full h-auto bg-(--primary) p-5 flex-col items-center flex-1 gap-5`}
+      className={`${isEveryMonthOn()} w-full h-auto bg-(--primary) p-5 flex-col items-center flex-1 gap-5 lg:grid-cols-2 lg:grid-rows-auto`}
     >
       {budgets.map((b) => {
         const usedMoney: number = getExpenseByCategory(
           transactions,
           b.category,
         );
-        return (
-          <BudgetCard
-            key={b.bid}
-            budget={b}
-            usedMoney={usedMoney}
-            loadBudgets={loadBudgets}
-          />
-        );
+        return <BudgetCard key={b.bid} budget={b} usedMoney={usedMoney} />;
       })}
     </div>
   );

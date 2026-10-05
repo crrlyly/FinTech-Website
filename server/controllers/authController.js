@@ -194,7 +194,9 @@ export async function getCurrentUser(req, res) {
         email,
         name,
         created_on,
-        updated_on
+        updated_on,
+        autoActivateBudget,
+        activateBudget
       FROM user
       WHERE id = ?
       LIMIT 1
@@ -231,15 +233,19 @@ export async function updateUser(req, res) {
       });
     }
 
-    console.log(uid);
-
-    const { name, email } = req.body;
+    const { name, email, autoActivateBudget } = req.body;
 
     const now = new Date();
 
     const [response] = await db.execute(
-      "update user set name=?, email=?, updated_on=? where id=?",
-      [name, email, now.toISOString().slice(0, 19).replace("T", " "), uid],
+      "update user set name=?, email=?, updated_on=?, autoActivateBudget=? where id=?",
+      [
+        name,
+        email,
+        now.toISOString().slice(0, 19).replace("T", " "),
+        autoActivateBudget,
+        uid,
+      ],
     );
 
     if (response.affectedRows === 0) {

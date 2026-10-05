@@ -16,8 +16,13 @@ const SettingsForms = () => {
 
   const submit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return;
     try {
-      const { message } = await updateUser(name, email);
+      const { message } = await updateUser(
+        name,
+        email,
+        user.autoActivateBudget,
+      );
       console.log(message);
     } catch (error) {
       console.error(error);
@@ -31,7 +36,7 @@ const SettingsForms = () => {
       >
         <form onSubmit={submit}>
           <div
-            className={`flex items-center justify-start text-2xl mb-5 text-white font-bold text-[1.2rem]`}
+            className={`flex items-center justify-start text-2xl mb-5 text-white font-bold text-[1.2rem] lg:mb-10`}
           >
             <span className="material-symbols-outlined mr-2 text-green-500 text-[1.2rem]!">
               person
@@ -49,7 +54,7 @@ const SettingsForms = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className={`flex flex-col mb-5`}>
+          <div className={`flex flex-col mb-5 lg:mb-10`}>
             <label htmlFor="" className={`text-(--greyText)`}>
               Email
             </label>
@@ -62,7 +67,7 @@ const SettingsForms = () => {
           </div>
           <button
             type="submit"
-            className={`mb-5 bg-(--purple) text-white font-bold p-2 flex items-center justify-center px-5 rounded-full text-[1.1rem]`}
+            className={`mb-5 bg-(--purple) text-white font-bold p-2 flex items-center justify-center px-5 rounded-full text-[1.1rem] `}
           >
             <span className="material-symbols-outlined mr-2">save</span> Save
             Changes

@@ -74,11 +74,15 @@ export async function getCurrentUser() {
   return res.json();
 }
 
-export async function updateUser(name: string, email: string) {
+export async function updateUser(
+  name: string,
+  email: string,
+  autoActivateBudget: boolean,
+) {
   const res = await fetch(`${API_URL}/`, {
     credentials: "include",
     method: "PATCH",
-    body: JSON.stringify({ name, email }),
+    body: JSON.stringify({ name, email, autoActivateBudget }),
     headers: {
       "Content-Type": "application/json",
     },

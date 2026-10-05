@@ -1,15 +1,13 @@
 import Ratio from "../shared/Ratio";
 import type { Budget } from "../../../models/Budget";
-// import { updateBudgets } from "../../../services/budgetApi";
 import EditBudget from "./EditBudget";
 import { useState } from "react";
 
 type BudgetCardProps = {
   budget: Budget;
   usedMoney: number;
-  loadBudgets: () => void;
 };
-const BudgetCard = ({ budget, usedMoney, loadBudgets }: BudgetCardProps) => {
+const BudgetCard = ({ budget, usedMoney }: BudgetCardProps) => {
   const [editActive, setEditActive] = useState<boolean>(false);
 
   const percent =
@@ -47,7 +45,6 @@ const BudgetCard = ({ budget, usedMoney, loadBudgets }: BudgetCardProps) => {
         active={editActive}
         handleClick={handleClick}
         budget={budget}
-        loadBudgets={loadBudgets}
       ></EditBudget>
     </>
   );

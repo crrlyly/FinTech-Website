@@ -1,4 +1,3 @@
-import type { Budget } from "../../../models/Budget";
 import {
   getExpense,
   getIncome,
@@ -6,17 +5,21 @@ import {
   unallocatedMoney,
 } from "../../../helpers/budgetHelper";
 import { useTransactionStore } from "../../../stores/TransactionStore";
+import { getTotalBalance } from "../../../helpers/dashboardHelpers";
+import { savedInGoals } from "../../../helpers/goalHelper";
+import { useGoalStore } from "../../../stores/GoalStore";
+import { useBudgetStore } from "../../../stores/BudgetStore";
 
 interface StatCardProps {
   area?: "balance" | "saved" | "available";
-  budgets?: Budget[];
   action?: "income" | "total" | "spent" | "unallocated";
 }
 
-const StatCard = ({ area, budgets, action }: StatCardProps) => {
+const StatCard = ({ area, action }: StatCardProps) => {
   const transactions = useTransactionStore((s) => s.transactions);
+  const goals = useGoalStore((s) => s.goals);
+  const budgets = useBudgetStore((s) => s.budgets);
 
-  console.log(transactions);
   function determineAction(): [string, number] {
     switch (action) {
       case "income":
@@ -42,13 +45,16 @@ const StatCard = ({ area, budgets, action }: StatCardProps) => {
   function determineAction2(): [string, number] {
     switch (area) {
       case "balance":
-        return ["Total balance", 0];
+        return ["Total balance", getTotalBalance(transactions)];
 
       case "saved":
-        return ["Saved in goals", 0];
+        return ["Saved in goals", savedInGoals(goals)];
 
       case "available":
-        return ["Available to spend", 0];
+        return [
+          "Available to spend",
+          getTotalBalance(transactions) - savedInGoals(goals),
+        ];
 
       default:
         return ["", 0];

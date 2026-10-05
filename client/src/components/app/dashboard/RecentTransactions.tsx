@@ -30,7 +30,7 @@ const RecentTransactions = () => {
         >
           {transactions.length > 0 ? (
             transactions
-              .slice(0, 4)
+              .slice(0, 5)
               .map((t) => (
                 <TransactionCard key={t.tid} transaction={t}></TransactionCard>
               ))
