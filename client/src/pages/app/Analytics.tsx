@@ -1,6 +1,7 @@
 import Statistics from "../../components/app/analytics/Statistics";
 import TopNav from "../../components/app/shared/TopNav";
-import IncomevsExpenses from "../../components/app/analytics/IncomevsExpenses";
+import IncomevsExpensesChart from "../../components/app/analytics/IncomevsExpensesChart";
+import SpendingByCategoryChart from "../../components/app/analytics/SpendingByCategoryChart";
 const Analytics = () => {
   return (
     <div
@@ -8,7 +9,8 @@ const Analytics = () => {
     >
       <Statistics></Statistics>
       <TopNav title="Analytics"></TopNav>
-      <IncomevsExpenses></IncomevsExpenses>
+      <IncomevsExpensesChart></IncomevsExpensesChart>
+      <SpendingByCategoryChart></SpendingByCategoryChart>
     </div>
   );
 };

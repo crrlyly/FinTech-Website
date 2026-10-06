@@ -6,16 +6,17 @@ import type {
 import { useTransactionStore } from "../../../stores/TransactionStore";
 import type { Transaction } from "../../../models/Transaction";
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
-  //   YAxis,
+  YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from "recharts";
 
-const IncomevsExpenses = () => {
+const IncomevsExpensesChart = () => {
   const [yearlyTransactions, setYearlyTransactions] = useState<Data[]>([]);
   const currentYear: number = new Date().getFullYear();
   const transactions = useTransactionStore((s) => s.transactions);
@@ -23,9 +24,6 @@ const IncomevsExpenses = () => {
   useEffect((): void => {
     async function loadYearlyStats(): Promise<void> {
       try {
-        // const { transactions }: { transactions: Transaction[] } =
-        //   await getTransactions();
-
         const monthsOrder: string[] = [
           "Jan",
           "Feb",
@@ -74,6 +72,7 @@ const IncomevsExpenses = () => {
             {},
           );
         setYearlyTransactions(Object.values(groupedMap)); // turns the object into an array
+        console.log(Object.values(groupedMap));
       } catch (error) {
         console.error(error);
       }
@@ -84,55 +83,44 @@ const IncomevsExpenses = () => {
 
   return (
     <div className={`w-full h-auto p-5`}>
-      <div className={`w-full h-70  bg-(--card)`}>
-        <div className={`text-white`}>Income vs Expenses</div>
+      <div
+        className={`w-full h-100  bg-(--card) p-10 flex flex-col justify-center border border-white/10 rounded-[20px]`}
+      >
+        <div className={`text-white text-[1.2rem] font-bold`}>
+          Income vs Expenses For the Year
+        </div>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={yearlyTransactions}>
-            <defs>
-              <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#22c0c5" stopOpacity={0.4} />
-
-                <stop offset="100%" stopColor="(#22c0c5)" stopOpacity={0} />
-              </linearGradient>
-
-              <linearGradient id="outcomeGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--purple)" stopOpacity={0.4} />
-
-                <stop offset="100%" stopColor="var(--purple)" stopOpacity={0} />
-              </linearGradient>
-            </defs>
+          <BarChart
+            margin={{
+              top: 20,
+              right: 0,
+              left: -20,
+              bottom: 0,
+            }}
+            data={yearlyTransactions}
+          >
             <CartesianGrid
-              strokeDasharray="5 5"
-              stroke="#ffffff"
+              strokeDasharray="3 3"
+              vertical={false}
               strokeOpacity={0.1}
-            ></CartesianGrid>
-            <XAxis
-              dataKey="month"
-              padding={{ left: 7, right: 7 }}
-              tick={{ fill: "#ffffff80" }}
-            ></XAxis>
-            {/* <YAxis /> */}
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="income"
-              stroke="#22c0c5"
-              strokeWidth={3}
-              fill="url(#incomeGradient)"
-            ></Area>
-
-            <Area
-              type="monotone"
-              dataKey="expenses"
-              stroke="var(--purple)"
-              strokeWidth={3}
-              fill="url(#outcomeGradient)"
             />
-          </AreaChart>
+
+            <XAxis dataKey="month" />
+
+            <YAxis />
+
+            <Tooltip />
+
+            <Legend />
+
+            <Bar dataKey="income" fill="#2dd4bf" radius={[6, 6, 0, 0]} />
+
+            <Bar dataKey="expenses" fill="#7c3aed" radius={[6, 6, 0, 0]} />
+          </BarChart>
         </ResponsiveContainer>
       </div>
     </div>
   );
 };
 
-export default IncomevsExpenses;
+export default IncomevsExpensesChart;
