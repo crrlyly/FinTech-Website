@@ -14,6 +14,7 @@ import Login from "./pages/home/Login";
 import Signup from "./pages/home/Signup";
 
 import AppLayout from "./components/app/AppLayout";
+import Analytics from "./pages/app/Analytics";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
 
             {/* Logged in pages */}
             <Route element={<AppLayout />}>
@@ -31,8 +33,7 @@ function App() {
               <Route path="/budgets" element={<Budgets />} />
               <Route path="/savings" element={<Savings />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/analytics" element={<Analytics />} />
             </Route>
           </Routes>
         </div>

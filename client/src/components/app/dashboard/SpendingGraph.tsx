@@ -13,13 +13,13 @@ import type { Transaction } from "../../../models/Transaction";
 // import type { TransactionProps } from "./Header";
 import { useTransactionStore } from "../../../stores/TransactionStore";
 
-interface Data {
+export interface Data {
   month: string;
   income: number;
   expenses: number;
 }
 
-interface YearlyTransactionStatsMap {
+export interface YearlyTransactionStatsMap {
   [month: string]: Data;
 }
 
