@@ -70,13 +70,13 @@ const SpendingByCategoryChart = () => {
   return (
     <div className={`w-full h-auto p-5`}>
       <div
-        className={`w-full h-100  bg-(--card) p-10 flex flex-col justify-center border border-white/10 rounded-[20px]`}
+        className={`w-full h-100 bg-(--card) p-10 flex flex-col justify-center border border-white/10 rounded-[20px]`}
       >
         <div className={`text-white text-[1.2rem] font-bold`}>
           Spending by Category for the Year
         </div>
         <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
+          <PieChart margin={{ top: 10 }}>
             <Pie
               data={yearlyTransactions}
               dataKey="expenses"

@@ -70,7 +70,7 @@ const StatCard = ({ area, action }: StatCardProps) => {
         {action ? determineAction()[0] : determineAction2()[0]}
       </div>
       <div className={`text-2xl font-bold lg:text-4xl`}>
-        ${action ? determineAction()[1] : determineAction2()[1]}
+        ${action ? determineAction()[1] : determineAction2()[1].toFixed(2)}
       </div>
     </div>
   );

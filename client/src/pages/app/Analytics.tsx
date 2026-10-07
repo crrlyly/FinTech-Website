@@ -2,6 +2,7 @@ import Statistics from "../../components/app/analytics/Statistics";
 import TopNav from "../../components/app/shared/TopNav";
 import IncomevsExpensesChart from "../../components/app/analytics/IncomevsExpensesChart";
 import SpendingByCategoryChart from "../../components/app/analytics/SpendingByCategoryChart";
+import MonthlySpendingTrend from "../../components/app/analytics/MonthlySpendingTrend";
 const Analytics = () => {
   return (
     <div
@@ -9,8 +10,11 @@ const Analytics = () => {
     >
       <Statistics></Statistics>
       <TopNav title="Analytics"></TopNav>
-      <IncomevsExpensesChart></IncomevsExpensesChart>
-      <SpendingByCategoryChart></SpendingByCategoryChart>
+      <div className={`w-full h-auto lg:grid lg:grid-cols-2`}>
+        <IncomevsExpensesChart></IncomevsExpensesChart>
+        <SpendingByCategoryChart></SpendingByCategoryChart>
+        <MonthlySpendingTrend></MonthlySpendingTrend>
+      </div>
     </div>
   );
 };
