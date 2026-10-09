@@ -5,71 +5,65 @@ import { updateUser } from "../services/authApi";
 type BudgetUIStore = {
   activateBudget: boolean;
   activateEveryMonth: boolean;
-  setActivateBudgets: (user: User | null) => Promise<void>;
-  setActivateEveryMonthFromUser: (user: User | null) => void;
-  updateUserActivateEveryMonth: (user: User | null) => Promise<void>;
+  loadInitialValues: (user: User | null) => void;
+  toggleActivateBudgets: (user: User | null) => Promise<void>;
+  toggleActivateEveryMonthFromUser: (user: User | null) => Promise<void>;
 };
 
 export const useBudgetUIStore = create<BudgetUIStore>((set, get) => ({
   activateBudget: false,
   activateEveryMonth: false,
-  setActivateBudgets: async (user) => {
+
+  //call this in a useEffect in Budget ONCE
+  loadInitialValues: (user) => {
+    if (!user) {
+      return;
+    }
+    set({
+      activateBudget: user.activateBudget,
+      activateEveryMonth: user.autoActivateBudget,
+    });
+  },
+
+
+  toggleActivateBudgets: async (user) => {
     if (!user) {
       return;
     }
     try {
-      const state 
-      = get();
+      const state = get();
       const newActivateBudget = !state.activateBudget;
 
-      if (newActivateBudget === false) {
-        await updateUser(user.name, user.email, false, false);
-      }
+      await updateUser(user.name, user.email, false, newActivateBudget);
 
+      // update the variables in this store
       set({
         activateBudget: newActivateBudget,
-        activateEveryMonth: newActivateBudget
-          ? state.activateEveryMonth
-          : false,
+        activateEveryMonth: false,
       });
     } catch (error) {
       console.error(error);
     }
-
-
   },
-  setActivateEveryMonthFromUser: (user) => {
+  
+  toggleActivateEveryMonthFromUser: async (user) => {
     if (!user) {
       return;
     }
-    const value = user.autoActivateBudget;
-    if (value) {
-      set({ activateEveryMonth: value, activateBudget: true });
-    } else {
-      set({ activateEveryMonth: value });
-    }
-  },
-  updateUserActivateEveryMonth: async (user) => {
-    if (!user) {
-      return;
-    }
-
     try {
       const state = get();
-      const newValue = !state.activateEveryMonth;
+      const newActivateEveryMonth = !state.activateEveryMonth;
 
-      await updateUser(user.name, user.email, newValue);
+      await updateUser(
+        user.name,
+        user.email,
+        newActivateEveryMonth,
+        state.activateBudget,
+      );
 
-      if (newValue) {
-        set({
-          activateBudget: true,
-          activateEveryMonth: true,
-        });
-      } else {
-        set({
-          activateEveryMonth: false,
-        });
-      }
+      set({
+        activateEveryMonth: newActivateEveryMonth,
+      });
     } catch (error) {
       console.error(error);
     }

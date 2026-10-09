@@ -12,7 +12,7 @@ import { useBudgetStore } from "../../stores/BudgetStore";
 const Budgets = () => {
   const { user } = useUser();
   const setActivateEveryMonthFromUser = useBudgetUIStore(
-    (s) => s.setActivateEveryMonthFromUser,
+    (s) => s.toggleActivateEveryMonthFromUser,
   );
   const budgets = useBudgetStore((s) => s.budgets);
   const loadPast4Months = useBudgetStore((s) => s.loadPast4MonthsBudget);
