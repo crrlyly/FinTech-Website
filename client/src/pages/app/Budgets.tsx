@@ -14,11 +14,13 @@ const Budgets = () => {
   const setActivateEveryMonthFromUser = useBudgetUIStore(
     (s) => s.setActivateEveryMonthFromUser,
   );
-  const budgets = useBudgetStore((s) => s.budgets).slice(-4);
+  const budgets = useBudgetStore((s) => s.budgets);
+  const loadPast4Months = useBudgetStore((s) => s.loadPast4MonthsBudget);
 
   useEffect(() => {
     setActivateEveryMonthFromUser(user);
-  }, [user, setActivateEveryMonthFromUser]);
+    loadPast4Months(budgets);
+  }, [user, setActivateEveryMonthFromUser, loadPast4Months, budgets]);
 
   return (
     <div
@@ -26,8 +28,11 @@ const Budgets = () => {
     >
       <TopNav title="Budgets"></TopNav>
       <div
-        className={`w-[calc(100%-2.5rem)] mt-5 rounded-[20px] border border-white/10 h-auto min-h-20 bg-(--card) flex justify-center items-center text-(--greyText) px-5 py-2`}
+        className={`w-[calc(100%-2.5rem)] mt-5 rounded-[20px] border border-white/10 h-auto min-h-20 bg-(--card) grid grid-cols-3 text-(--greyText) px-5 py-2`}
       >
+        <button className={`p-2 text-white flex items-center justify-start`}>
+          <span className="material-symbols-outlined">chevron_left</span>
+        </button>
         <div
           className={`font-bold flex flex-col justify-center items-center text-[1.2rem] text-white`}
         >
@@ -36,6 +41,9 @@ const Budgets = () => {
             Current month
           </span>
         </div>
+        <button className={`p-2 text-white flex items-center justify-end`}>
+          <span className="material-symbols-outlined">chevron_right</span>
+        </button>
       </div>
       <BudgetActivate></BudgetActivate>
       <BudgetHeader></BudgetHeader>

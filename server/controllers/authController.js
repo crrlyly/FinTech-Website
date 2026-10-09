@@ -233,17 +233,18 @@ export async function updateUser(req, res) {
       });
     }
 
-    const { name, email, autoActivateBudget } = req.body;
+    const { name, email, autoActivateBudget, activateBudget } = req.body;
 
     const now = new Date();
 
     const [response] = await db.execute(
-      "update user set name=?, email=?, updated_on=?, autoActivateBudget=? where id=?",
+      "update user set name=?, email=?, updated_on=?, autoActivateBudget=?, activateBudget=? where id=?",
       [
         name,
         email,
         now.toISOString().slice(0, 19).replace("T", " "),
         autoActivateBudget,
+        activateBudget,
         uid,
       ],
     );

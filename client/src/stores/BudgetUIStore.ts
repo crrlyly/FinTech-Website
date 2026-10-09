@@ -18,11 +18,12 @@ export const useBudgetUIStore = create<BudgetUIStore>((set, get) => ({
       return;
     }
     try {
-      const state = get();
+      const state 
+      = get();
       const newActivateBudget = !state.activateBudget;
 
       if (newActivateBudget === false) {
-        await updateUser(user.name, user.email, false);
+        await updateUser(user.name, user.email, false, false);
       }
 
       set({

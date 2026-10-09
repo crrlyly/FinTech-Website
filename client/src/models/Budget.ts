@@ -3,6 +3,7 @@ export interface Budget {
   maxAmount: string;
   category: string;
   uid: string;
+  date?: string;
 }
 
 export interface BudgetFormData {
