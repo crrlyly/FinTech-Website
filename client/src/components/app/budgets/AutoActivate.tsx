@@ -4,16 +4,16 @@ import { useBudgetUIStore } from "../../../stores/BudgetUIStore";
 const AutoActivate = () => {
   const { user } = useUser();
   const activateBudget = useBudgetUIStore((s) => s.activateBudget);
-  const updateUserActivateEveryMonth = useBudgetUIStore(
-    (s) => s.updateUserActivateEveryMonth,
+  const activateEveryMonth = useBudgetUIStore((s) => s.activateEveryMonth);
+  const toggleActivateEveryMonthFromUser = useBudgetUIStore(
+    (s) => s.toggleActivateEveryMonthFromUser,
   );
-  const checkEveryMonthActive = useBudgetUIStore((s) => s.activateEveryMonth);
 
   function isEveryMonthOn() {
-    return checkEveryMonthActive || activateBudget ? "flex" : "hidden";
+    return activateEveryMonth || activateBudget ? "flex" : "hidden";
   }
 
-  console.log(checkEveryMonthActive);
+  console.log(activateEveryMonth);
   return (
     <div
       className={`${isEveryMonthOn()} w-full h-auto bg-(--card) border border-white/10 rounded-[20px] px-5 py-3 justify-between items-center`}
@@ -25,11 +25,11 @@ const AutoActivate = () => {
         </span>
       </div>
       <button
-        onClick={() => updateUserActivateEveryMonth(user)}
-        className={`bg-(--purple) w-13 h-6 rounded-full relative`}
+        onClick={() => toggleActivateEveryMonthFromUser(user)}
+        className={`cursor-pointer ${activateEveryMonth ? "bg-(--purple)" : "bg-(--primary)"} w-13 h-6 rounded-full relative border border-white/10`}
       >
         <div
-          className={`${checkEveryMonthActive ? "right-0 top-0" : "left-0 top-0"} transition-all duration-300 bg-white rounded-full w-[50%] h-full absolute`}
+          className={`${activateEveryMonth ? "right-0 top-0" : "left-0 top-0"} transition-all duration-300 bg-white rounded-full w-[50%] h-full absolute`}
         ></div>
       </button>
     </div>

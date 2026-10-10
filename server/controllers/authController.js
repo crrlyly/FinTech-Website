@@ -99,7 +99,7 @@ export async function login(req, res) {
 
     const [result] = await db.query(
       `
-      SELECT id, name, email, password
+      SELECT id, name, email, password, autoActivateBudget, activateBudget
       FROM user
       WHERE email = ?
       LIMIT 1
@@ -145,6 +145,8 @@ export async function login(req, res) {
             id: user.id,
             name: user.name,
             email: user.email,
+            autoActivateBudget: user.autoActivateBudget,
+            activateBudget: user.activateBudget,
           },
         });
       });
@@ -212,6 +214,7 @@ export async function getCurrentUser(req, res) {
       });
     }
 
+    console.log("BACKEND USER:", user);
     return res.status(200).json({
       user: user,
     });

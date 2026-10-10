@@ -4,15 +4,14 @@ import { useBudgetUIStore } from "../../../stores/BudgetUIStore";
 const BudgetActivate = () => {
   const { user } = useUser();
   const activateBudget = useBudgetUIStore((s) => s.activateBudget);
-  const setActivateBudget = useBudgetUIStore((s) => s.setActivateBudgets);
-  const checkEveryMonthActive = useBudgetUIStore((s) => s.activateEveryMonth);
+  const toggleActivateBudgets = useBudgetUIStore(
+    (s) => s.toggleActivateBudgets,
+  );
+  const activateEveryMonth = useBudgetUIStore((s) => s.activateEveryMonth);
 
-  function isEveryMonthOn() {
-    return checkEveryMonthActive || activateBudget ? "hidden" : "block";
-  }
   return (
     <div
-      className={`${isEveryMonthOn()} w-full h-auto bg-(--primary) flex-1 p-5`}
+      className={`${activateEveryMonth || activateBudget ? "hidden" : "block"} w-full h-auto bg-(--primary) flex-1 p-5`}
     >
       <div
         className={`flex justify-start items-center text-white h-auto my-5 lg:text-[1.2rem]`}
@@ -41,7 +40,7 @@ const BudgetActivate = () => {
           any month you don't want to budget.
         </p>
         <button
-          onClick={() => setActivateBudget(user)}
+          onClick={() => toggleActivateBudgets(user)}
           className={`w-full p-2 bg-(--purple) rounded-full flex justify-center items-center mb-3 lg:max-w-50 lg:text-[1.2rem] cursor-pointer`}
         >
           <span className="material-symbols-outlined mr-2">mode_off_on</span>

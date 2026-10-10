@@ -75,7 +75,7 @@ const AddTransaction = ({
           className={`w-full h-auto flex items-center justify-between p-5 text-[1.2rem] font-bold`}
         >
           Add Transaction
-          <button onClick={() => handleClick()}>
+          <button className={`cursor-pointer`} onClick={() => handleClick()}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -87,14 +87,14 @@ const AddTransaction = ({
             <button
               type="button"
               onClick={() => changeType("expense")}
-              className={`${type === "expense" ? "bg-purple-500 text-white" : "bg-white/10 text-(--greyText)"} w-[50%] mr-3 p-2 rounded-2xl`}
+              className={`cursor-pointer ${type === "expense" ? "bg-purple-500 text-white" : "bg-white/10 text-(--greyText)"} w-[50%] mr-3 p-2 rounded-2xl`}
             >
               Expense
             </button>
             <button
               type="button"
               onClick={() => changeType("income")}
-              className={`${type === "income" ? "bg-purple-500 text-white" : "bg-white/10 text-(--greyText)"} w-[50%] p-2 rounded-2xl`}
+              className={`cursor-pointer ${type === "income" ? "bg-purple-500 text-white" : "bg-white/10 text-(--greyText)"} w-[50%] p-2 rounded-2xl`}
             >
               Income
             </button>
@@ -157,7 +157,7 @@ const AddTransaction = ({
           </div>
           <div className={`flex flex-col`}>
             <button
-              className={`p-2 bg-(--purple) rounded-2xl mb-10 mx-5`}
+              className={`cursor-pointer p-2 bg-(--purple) rounded-2xl mb-10 mx-5`}
               type="submit"
             >
               Save

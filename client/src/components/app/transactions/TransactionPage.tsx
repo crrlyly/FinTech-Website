@@ -75,7 +75,7 @@ const TransactionPage = () => {
 
         <button
           onClick={handleClick}
-          className={`bg-(--purple) flex items-center justify-start md:justify-center p-2 rounded-full text-white md:w-25 md:self-end md:ml-auto`}
+          className={`cursor-pointer bg-(--purple) flex items-center justify-start md:justify-center p-2 rounded-full text-white md:w-25 md:self-end md:ml-auto`}
         >
           <span className="material-symbols-outlined text-[1.1rem]! mr-2">
             add

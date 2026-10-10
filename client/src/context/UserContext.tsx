@@ -17,12 +17,18 @@ type UserContextType = {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
+  console.log("USER PROVIDER RENDERED");
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+
     async function loadUser() {
+      console.log("ABOUT TO FETCH USER");
+
       try {
         const data = await getCurrentUser();
+
+        console.log("FRONTEND USER:", data.user);
 
         setUser(data.user);
       } catch (error) {

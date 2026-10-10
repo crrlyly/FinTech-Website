@@ -22,6 +22,7 @@ const SettingsForms = () => {
         name,
         email,
         user.autoActivateBudget,
+        user.activateBudget
       );
       console.log(message);
     } catch (error) {
@@ -67,7 +68,7 @@ const SettingsForms = () => {
           </div>
           <button
             type="submit"
-            className={`mb-5 bg-(--purple) text-white font-bold p-2 flex items-center justify-center px-5 rounded-full text-[1.1rem] `}
+            className={`cursor-pointer mb-5 bg-(--purple) text-white font-bold p-2 flex items-center justify-center px-5 rounded-full text-[1.1rem] `}
           >
             <span className="material-symbols-outlined mr-2">save</span> Save
             Changes

@@ -38,7 +38,7 @@ const SavingsCard = ({ goal }: SavingsCardProps) => {
             </span>
             {goal.name}
           </div>
-          <button onClick={handleDelete}>
+          <button className={`cursor-pointer`} onClick={handleDelete}>
             <span className="material-symbols-outlined text-[1.1rem]! text-(--greyText)">
               delete
             </span>
@@ -56,7 +56,7 @@ const SavingsCard = ({ goal }: SavingsCardProps) => {
         <div className={`mb-3`}>Save $1,050.00/mo to hit 2026-12-15</div>
         <button
           onClick={handleClick}
-          className={`w-full bg-white/10 rounded-2xl p-2 hover:bg-white/20 duration-100 `}
+          className={`w-full cursor-pointer bg-white/10 rounded-2xl p-2 hover:bg-white/20 duration-100 `}
         >
           Add Funds
         </button>

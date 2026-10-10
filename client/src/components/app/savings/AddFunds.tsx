@@ -47,7 +47,7 @@ const AddFunds = ({ active, handleClick, goal }: AddFundsProps) => {
           className={`flex justify-between text-white text-[1.2rem] font-bold mb-3`}
         >
           Add Funds to test{" "}
-          <button onClick={() => handleClick()}>
+          <button className={`cursor-pointer`} onClick={() => handleClick()}>
             <span className="material-symbols-outlined text-(--greyText)">
               close
             </span>
@@ -65,7 +65,7 @@ const AddFunds = ({ active, handleClick, goal }: AddFundsProps) => {
           </div>
           <button
             type="submit"
-            className={`bg-(--purple) w-full p-2 rounded-[10px] text-white`}
+            className={`bg-(--purple) cursor-pointer w-full p-2 rounded-[10px] text-white`}
           >
             Add funds
           </button>

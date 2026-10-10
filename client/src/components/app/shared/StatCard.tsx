@@ -1,6 +1,7 @@
 import {
   getExpense,
   getIncome,
+  getPast4MonthsBudget,
   getTotalBudgeted,
   unallocatedMoney,
 } from "../../../helpers/budgetHelper";
@@ -9,6 +10,7 @@ import { getTotalBalance } from "../../../helpers/dashboardHelpers";
 import { savedInGoals } from "../../../helpers/goalHelper";
 import { useGoalStore } from "../../../stores/GoalStore";
 import { useBudgetStore } from "../../../stores/BudgetStore";
+import { useMemo } from "react";
 
 interface StatCardProps {
   area?: "balance" | "saved" | "available";
@@ -18,23 +20,53 @@ interface StatCardProps {
 const StatCard = ({ area, action }: StatCardProps) => {
   const transactions = useTransactionStore((s) => s.transactions);
   const goals = useGoalStore((s) => s.goals);
-  const budgets = useBudgetStore((s) => s.budgets);
+
+  const allBudgets = useBudgetStore((s) => s.allBudgets);
+  const past4Months = useMemo(
+    () => getPast4MonthsBudget(allBudgets),
+    [allBudgets],
+  );
+  const selectedMonthIndex = useBudgetStore((s) => s.selectedMonthIndex);
 
   function determineAction(): [string, number] {
     switch (action) {
       case "income":
-        return ["Income this month", getIncome(transactions)];
+        return [
+          "Income this month",
+          getIncome(
+            transactions,
+            past4Months[selectedMonthIndex].month,
+            past4Months[selectedMonthIndex].year,
+          ),
+        ];
 
       case "total":
-        return ["Total budgeted", budgets ? getTotalBudgeted(budgets) : 0];
+        return [
+          "Total budgeted",
+          getTotalBudgeted(past4Months[selectedMonthIndex].budget),
+        ];
 
       case "spent":
-        return ["Spent so far", getExpense(transactions)];
+        return [
+          "Spent so far",
+          getExpense(
+            transactions,
+            past4Months[selectedMonthIndex].month,
+            past4Months[selectedMonthIndex].year,
+          ),
+        ];
 
       case "unallocated":
         return [
           "Unallocated",
-          budgets ? unallocatedMoney(transactions, budgets) : 0,
+          past4Months[selectedMonthIndex].budget
+            ? unallocatedMoney(
+                transactions,
+                past4Months[selectedMonthIndex].budget,
+                past4Months[selectedMonthIndex].month,
+                past4Months[selectedMonthIndex].year,
+              )
+            : 0,
         ];
 
       default:

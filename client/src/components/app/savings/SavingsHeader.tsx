@@ -18,7 +18,7 @@ const SavingsHeader = () => {
         </span>
         <button
           onClick={handleClick}
-          className={`bg-(--purple) rounded-full text-white flex items-center p-1 lg:p-2 lg:px-5`}
+          className={`bg-(--purple) cursor-pointer rounded-full text-white flex items-center p-1 lg:p-2 lg:px-5`}
         >
           <span className="material-symbols-outlined">add</span>
           New goal

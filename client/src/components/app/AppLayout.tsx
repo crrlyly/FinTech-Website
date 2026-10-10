@@ -11,7 +11,7 @@ const AppLayout = () => {
     (state) => state.loadStoreTransactions,
   );
 
-  const loadBudgets = useBudgetStore((s) => s.loadStoreBudgets);
+  const loadBudgets = useBudgetStore((s) => s.loadBudgets);
   const loadGoals = useGoalStore((s) => s.loadStoreGoals);
 
   useEffect(() => {

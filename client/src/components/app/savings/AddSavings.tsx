@@ -46,7 +46,7 @@ const AddSavings = ({ active, handleClick}: AddSavingsProps) => {
       >
         <div className={`flex items-center justify-between text-2xl mb-5`}>
           New Savings Goal
-          <button onClick={handleClick}>
+          <button className={`cursor-pointer`} onClick={handleClick}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -111,7 +111,7 @@ const AddSavings = ({ active, handleClick}: AddSavingsProps) => {
             />
           </div>
           <button
-            className={`bg-(--purple) w-full p-2 rounded-2xl mb-3`}
+            className={`bg-(--purple) cursor-pointer w-full p-2 rounded-2xl mb-3`}
             type="submit"
           >
             Create goal

@@ -112,7 +112,7 @@ const SignupCard = () => {
           />
         </div>
         <button
-          className={` w-full p-3 rounded-2xl bg-(--purple)`}
+          className={`cursor-pointer w-full p-3 rounded-2xl bg-(--purple)`}
           type="submit"
         >
           Create Account

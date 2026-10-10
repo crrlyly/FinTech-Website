@@ -19,7 +19,7 @@ const Header = () => {
         </span>
         <button
           onClick={() => handleClick()}
-          className={`text-white bg-(--purple) flex mt-3 rounded-full p-2 md:mt-0 md:px-5`}
+          className={`text-white cursor-pointer bg-(--purple) flex mt-3 rounded-full p-2 md:mt-0 md:px-5`}
         >
           <span className="material-symbols-outlined">add</span>
           Add transaction

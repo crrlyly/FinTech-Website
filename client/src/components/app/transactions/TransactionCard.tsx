@@ -45,10 +45,16 @@ const TransactionCard = ({ transaction, last }: TransactionCardProps) => {
           </div>
         </div>
         <div className={`w-full h-auto flex p-5 justify-end`}>
-          <button onClick={() => handleClick()} className={`text-(--greyText)`}>
+          <button
+            onClick={() => handleClick()}
+            className={`cursor-pointer text-(--greyText)`}
+          >
             <span className="material-symbols-outlined pr-5">edit</span>
           </button>
-          <button onClick={() => deleteClick()} className={`text-(--greyText)`}>
+          <button
+            onClick={() => deleteClick()}
+            className={`cursor-pointer text-(--greyText)`}
+          >
             <span className="material-symbols-outlined">delete</span>
           </button>
         </div>
@@ -68,12 +74,18 @@ const TransactionCard = ({ transaction, last }: TransactionCardProps) => {
         </div>
         <div className={`w-full flex items-center`}>{transaction.amount}</div>
         <div className="w-full flex justify-end items-center">
-          <button onClick={() => handleClick()} className={`text-(--greyText)`}>
+          <button
+            onClick={() => handleClick()}
+            className={`cursor-pointer text-(--greyText)`}
+          >
             <span className="material-symbols-outlined pr-5 text-[1.2rem]!">
               edit
             </span>
           </button>
-          <button onClick={() => deleteClick()} className={`text-(--greyText)`}>
+          <button
+            onClick={() => deleteClick()}
+            className={`cursor-pointer text-(--greyText)`}
+          >
             <span className="material-symbols-outlined text-[1.2rem]!">
               delete
             </span>

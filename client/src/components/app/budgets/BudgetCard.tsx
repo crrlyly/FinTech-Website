@@ -2,6 +2,7 @@ import Ratio from "../shared/Ratio";
 import type { Budget } from "../../../models/Budget";
 import EditBudget from "./EditBudget";
 import { useState } from "react";
+import { useBudgetStore } from "../../../stores/BudgetStore";
 
 type BudgetCardProps = {
   budget: Budget;
@@ -9,6 +10,8 @@ type BudgetCardProps = {
 };
 const BudgetCard = ({ budget, usedMoney }: BudgetCardProps) => {
   const [editActive, setEditActive] = useState<boolean>(false);
+
+  const selectedMonthIndex = useBudgetStore((s) => s.selectedMonthIndex);
 
   const percent =
     Number(budget.maxAmount) < usedMoney
@@ -28,8 +31,11 @@ const BudgetCard = ({ budget, usedMoney }: BudgetCardProps) => {
       >
         <div className={`flex justify-between text-[1.2rem] font-bold`}>
           {budget.category}
-          <div className={``}>
-            <button onClick={handleClick} className={`mr-5 p-1`}>
+          <div>
+            <button
+              onClick={handleClick}
+              className={`cursor-pointer mr-5 p-1 ${selectedMonthIndex != 0 ? "hidden" : "block"}`}
+            >
               <span className="material-symbols-outlined text-[1.2rem]! text-(--greyText)">
                 edit
               </span>

@@ -14,7 +14,7 @@ const QuestionDropdown = ({ question }: { question: QuestAndAnswerProp }) => {
         {question.question}{" "}
         <button
           onClick={() => setActive((p) => !p)}
-          className={`flex justify-center items-center p-2 text-(--greyText)`}
+          className={`cursor-pointer flex justify-center items-center p-2 text-(--greyText)`}
         >
           <span className={`material-symbols-outlined`}>
             {active ? "keyboard_arrow_up" : "keyboard_arrow_down"}

@@ -51,7 +51,7 @@ const EditBudget = ({ active, handleClick, budget }: EditBudgetProps) => {
           className={`flex justify-between items-center font-bold text-[1.2rem] mb-3`}
         >
           Edit Budget
-          <button onClick={() => handleClick()}>
+          <button className={`cursor-pointer`} onClick={() => handleClick()}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -68,7 +68,7 @@ const EditBudget = ({ active, handleClick, budget }: EditBudgetProps) => {
             />
           </div>
           <button
-            className={`bg-(--purple) w-full p-2 rounded-[10px]`}
+            className={`bg-(--purple) cursor-pointer w-full p-2 rounded-[10px]`}
             type="submit"
           >
             Submit

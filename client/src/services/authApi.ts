@@ -71,6 +71,7 @@ export async function getCurrentUser() {
     throw new Error("Unable to fetch current user");
   }
 
+  
   return res.json();
 }
 
