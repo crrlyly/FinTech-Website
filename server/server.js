@@ -10,6 +10,8 @@ import transactionRoutes from "./routes/transactionRoutes.js";
 import budgetRoutes from "./routes/budgetRoutes.js";
 import goalRoutes from "./routes/goalRoutes.js";
 
+import { startMonthlyBudgetScheduler } from "./jobs/monthlyBudgetJob.js";
+
 dotenv.config({
   path: new URL("./.env", import.meta.url),
 });
@@ -77,6 +79,8 @@ app.get("/api/test-session", (req, res) => {
     visits: req.session.visits,
   });
 });
+
+startMonthlyBudgetScheduler();
 
 const PORT = process.env.PORT || 5000;
 

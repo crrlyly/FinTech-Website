@@ -59,7 +59,13 @@ const CurrencyConverter = () => {
               className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 lg:py-3`}
               type="number"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              min="0"
+              onChange={(e) => {
+                const value = e.target.value
+                if(value === "0" || Number(value) >= 0){
+                  setAmount(value)
+                }
+              }}
             />
           </div>
           <div className={`flex justify-between gap-3`}>
