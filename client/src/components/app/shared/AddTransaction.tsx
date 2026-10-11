@@ -32,24 +32,11 @@ const AddTransaction = ({
     existingTransaction ? existingTransaction.type : "expense",
   );
 
-  function changeType(typeChange: "expense" | "income") {
-    setType(typeChange);
-    setFormData((p) => ({ ...p, type: typeChange }));
-  }
-
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      if (existingTransaction) {
-        await updateTransaction(formData);
-      } else {
-        await addTransaction(formData);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    console.log("Object: ", formData);
-  };
+  const [errors, setErrors] = useState<{
+    date?: string;
+    amount?: string;
+    name?: string;
+  }>({});
 
   useEffect(() => {
     if (active) {
@@ -63,6 +50,70 @@ const AddTransaction = ({
     };
   }, [active]);
 
+  function changeType(typeChange: "expense" | "income") {
+    setType(typeChange);
+    setFormData((p) => ({ ...p, type: typeChange }));
+  }
+
+  function validateForm(): boolean {
+    const newErrors: {
+      date?: string;
+      amount?: string;
+      name?: string;
+    } = {};
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const chosenDate = new Date(`${formData.date}T00:00:00`);
+
+    if (chosenDate > today) {
+      newErrors.date = "Cannot choose future dates. Please try again.";
+    }
+
+    if (!formData.date) {
+      newErrors.date = "Must choose a date. Please try again.";
+    }
+
+    if (!formData.amount.trim()) {
+      newErrors.amount = "Must enter a transaction amount. Please try again.";
+    } else if (
+      !Number.isFinite(Number(formData.amount)) ||
+      Number(formData.amount) <= 0
+    ) {
+      newErrors.amount =
+        "Must enter a valid amount greater than 0. Please try again.";
+    }
+
+    if (!formData.name?.trim()) {
+      newErrors.name =
+        "Must have a name for the transaction. Please try again.";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  }
+
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      if (existingTransaction) {
+        await updateTransaction(formData);
+      } else {
+        await addTransaction(formData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    console.log("Object: ", formData);
+  };
+
   return (
     <div
       className={`${active ? "flex" : "hidden"} z-80 w-full h-full fixed top-0 left-0 bg-(--primary)/30
@@ -75,7 +126,13 @@ const AddTransaction = ({
           className={`w-full h-auto flex items-center justify-between p-5 text-[1.2rem] font-bold`}
         >
           Add Transaction
-          <button className={`cursor-pointer`} onClick={() => handleClick()}>
+          <button
+            className={`cursor-pointer`}
+            onClick={() => {
+              handleClick();
+              
+            }}
+          >
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -110,6 +167,8 @@ const AddTransaction = ({
                 setFormData((p) => ({ ...p, amount: e.target.value }))
               }
             />
+            {/* If error exists and is truthy then display the p */}
+            {errors.amount && <p className="text-red-500">{errors.amount}</p>}
           </div>
 
           <div className={`flex flex-col m-5`}>
@@ -143,6 +202,8 @@ const AddTransaction = ({
                 setFormData((p) => ({ ...p, date: e.target.value }))
               }
             />
+            {/* If error exists and is truthy then display the p */}
+            {errors.date && <p className="text-red-500">{errors.date}</p>}
           </div>
           <div className={`flex flex-col m-5`}>
             <label htmlFor="">Name</label>
@@ -154,6 +215,8 @@ const AddTransaction = ({
                 setFormData((p) => ({ ...p, name: e.target.value }))
               }
             />
+            {/* If error exists and is truthy then display the p */}
+            {errors.name && <p className="text-red-500">{errors.name}</p>}
           </div>
           <div className={`flex flex-col`}>
             <button
