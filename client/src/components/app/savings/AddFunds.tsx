@@ -12,17 +12,7 @@ const AddFunds = ({ active, handleClick, goal }: AddFundsProps) => {
   const updateGoal = useGoalStore((s) => s.updateStoreGoals);
   const [newGoal, setNewGoal] = useState<string>("");
 
-  async function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    try {
-      updateGoal({
-        ...goal,
-        currAmount: Number(goal.currAmount) + Number(newGoal),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const [errors, setErrors] = useState<{ amount?: string }>({});
 
   useEffect(() => {
     if (active) {
@@ -35,6 +25,33 @@ const AddFunds = ({ active, handleClick, goal }: AddFundsProps) => {
       document.body.style.overflow = "";
     };
   }, [active]);
+
+  function validateForm() {
+    const newErrors: { amount?: string } = {};
+
+    if (!newGoal.trim()) {
+      newErrors.amount = "Please input a number to add funds.";
+    } else if (!Number.isFinite(Number(newGoal)) || Number(newGoal) <= 0) {
+      newErrors.amount = "Please input a valid positive number.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+  async function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    try {
+      updateGoal({
+        ...goal,
+        currAmount: Number(goal.currAmount) + Number(newGoal),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div
@@ -62,6 +79,7 @@ const AddFunds = ({ active, handleClick, goal }: AddFundsProps) => {
               type="number"
               className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 lg:mb-5`}
             />
+            {errors.amount && <p className={`text-red-500`}>{errors.amount}</p>}
           </div>
           <button
             type="submit"

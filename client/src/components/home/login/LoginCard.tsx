@@ -13,8 +13,8 @@ const LoginCard = () => {
   const navigate = useNavigate();
   const { setUser } = useUser();
   const [formData, setFormData] = useState<LoginFormDataProps>({
-    email: "",
-    password: "",
+    email: "test1@gmail.com",
+    password: "1",
   });
 
   const submit = async (e: React.SubmitEvent<HTMLFormElement>) => {

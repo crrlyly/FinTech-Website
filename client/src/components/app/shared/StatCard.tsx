@@ -99,10 +99,15 @@ const StatCard = ({ area, action }: StatCardProps) => {
       className={`w-full h-auto bg-(--card) border border-white/10 rounded-[10px] p-3 text-white lg:p-5`}
     >
       <div className={`text-(--greyText) lg:text-[1.2rem]`}>
-        {action ? determineAction()[0] : determineAction2()[0]}
+        {action
+          ? determineAction()[0]
+          : determineAction2()[0]}
       </div>
       <div className={`text-2xl font-bold lg:text-4xl`}>
-        ${action ? determineAction()[1] : determineAction2()[1].toFixed(2)}
+        $
+        {action
+          ? Number(determineAction()[1]).toFixed(2)
+          : determineAction2()[1].toFixed(2)}
       </div>
     </div>
   );
