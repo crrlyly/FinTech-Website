@@ -7,6 +7,8 @@ const SettingsForms = () => {
   const [name, setName] = useState<string>(""); //get user and make default values their info
   const [email, setEmail] = useState<string>("");
 
+  const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
+
   useEffect(() => {
     if (user) {
       setName(user?.name);
@@ -14,15 +16,35 @@ const SettingsForms = () => {
     }
   }, [user]);
 
+  function validateForm() {
+    const newErrors: { name?: string; email?: string } = {};
+
+    //Errors for name
+    if (!name.trim()) {
+      newErrors.name = "Please put in your full name (first and last)";
+    }
+
+    //Errors for email
+    if (!email.trim()) {
+      newErrors.email = "Please put in your email.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
   const submit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     if (!user) return;
     try {
       const { message } = await updateUser(
         name,
         email,
         user.autoActivateBudget,
-        user.activateBudget
+        user.activateBudget,
       );
       console.log(message);
     } catch (error) {
@@ -54,6 +76,7 @@ const SettingsForms = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+            {errors.name && <p className={`text-red-500`}>{errors.name}</p>}
           </div>
           <div className={`flex flex-col mb-5 lg:mb-10`}>
             <label htmlFor="" className={`text-(--greyText)`}>
@@ -61,10 +84,11 @@ const SettingsForms = () => {
             </label>
             <input
               className={`bg-white/10 border border-white/10 rounded-[5px] pl-3 py-1 text-white`}
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && <p className={`text-red-500`}>{errors.email}</p>}
           </div>
           <button
             type="submit"

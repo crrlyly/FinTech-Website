@@ -74,7 +74,7 @@ const CurrencyConverter = () => {
                 From
               </label>
               <select
-                className={`bg-white/10 border border-white/10 pr-10 rounded-[5px] py-1 lg:py-3`}
+                className={`w-full min-w-0 bg-white/10 border border-white/10 pr-10 rounded-[5px] py-1 lg:py-3`}
                 name="from"
                 id="from"
                 value={from}
@@ -88,7 +88,7 @@ const CurrencyConverter = () => {
                 To
               </label>
               <select
-                className={`bg-white/10 border border-white/10 pr-10 rounded-[5px] py-1 lg:py-3`}
+                className={`w-full min-w-0 bg-white/10 border border-white/10 pr-10 rounded-[5px] py-1 lg:py-3`}
                 name="to"
                 id="to"
                 value={to}

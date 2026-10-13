@@ -57,7 +57,7 @@ const LoginCard = () => {
             <input
               className={`border border-white/10 p-2 rounded-[10px]`}
               placeholder="you@example.com"
-              type="text"
+              type="email"
               value={formData.email}
               onChange={(e) =>
                 setFormData((p) => ({ ...p, email: e.target.value }))

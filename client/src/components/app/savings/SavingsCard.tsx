@@ -29,7 +29,7 @@ const SavingsCard = ({ goal }: SavingsCardProps) => {
   return (
     <>
       <div
-        className={`w-full min-h-60 h-auto bg-(--card) border border-white/10 rounded-[15px] p-5 text-white lg:max-h-70`}
+        className={`w-full min-h-60 h-auto bg-(--card) border border-white/10 rounded-[15px] p-5 text-white`}
       >
         <div className={`flex justify-between items-center mb-5`}>
           <div className={`flex items-center text-[1.1rem] font-bold`}>
@@ -56,7 +56,7 @@ const SavingsCard = ({ goal }: SavingsCardProps) => {
         <div className={`mb-3`}>Save $1,050.00/mo to hit 2026-12-15</div>
         <button
           onClick={handleClick}
-          className={`w-full cursor-pointer bg-white/10 rounded-2xl p-2 hover:bg-white/20 duration-100 `}
+          className={`w-full cursor-pointer bg-white/10 rounded-2xl p-2 hover:bg-white/20 duration-100`}
         >
           Add Funds
         </button>

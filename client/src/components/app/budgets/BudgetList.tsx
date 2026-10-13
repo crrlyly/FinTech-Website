@@ -25,7 +25,7 @@ const BudgetList = () => {
   }
   return (
     <div
-      className={`${isEveryMonthOn()} w-full h-auto bg-(--primary) p-5 flex-col items-center flex-1 gap-5 lg:grid-cols-2 lg:grid-rows-auto`}
+      className={`${isEveryMonthOn()} w-full h-auto mb-5 bg-(--primary) p-5 flex-col items-center flex-1 gap-5 lg:grid-cols-2 lg:grid-rows-auto lg:max-h-200`}
     >
       {past4Months[selectedMonthIndex].budget.length > 0 ? (
         past4Months[selectedMonthIndex].budget.map((b) => {
