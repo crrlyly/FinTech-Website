@@ -16,8 +16,9 @@ const Dashboard = () => {
       <TopNav title="Dashboard"></TopNav>
       <Header></Header>
       <Statistics></Statistics>
+
       <div
-        className={`hidden lg:grid grid-cols-3 grid-rows-2 gap-10 mx-5 mt-5`}
+        className={`hidden lg:grid grid-cols-3 grid-rows-2 pb-5`}
       >
         <SpendingGraph></SpendingGraph>
         <CurrencyConverter></CurrencyConverter>
