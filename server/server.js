@@ -68,6 +68,8 @@ app.use("/api/transaction", transactionRoutes);
 app.use("/api/budget", budgetRoutes);
 app.use("/api/goal", goalRoutes);
 
+app.use(errorHandler); //must come after routes
+
 app.get("/api/test-session", (req, res) => {
   if (!req.session.visits) {
     req.session.visits = 1;
