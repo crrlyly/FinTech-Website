@@ -1,4 +1,4 @@
-export function validateTransaction(req, res, next) {
+export function validateTransactionForm(req, res, next) {
   const { name, date, amount, type, category } = req.body;
 
   //validate name
@@ -48,13 +48,13 @@ export function validateTransaction(req, res, next) {
     return res.status(400).json({
       message: "Transaction must have an amount.",
     });
-  } else if (Number(amount) <= 0) {
-    return res.status(400).json({
-      message: "Transaction amount must be greater than 0.",
-    });
   } else if (!Number.isFinite(Number(amount))) {
     return res.status(400).json({
       message: "Transaction amount must be a valid number.",
+    });
+  } else if (Number(amount) <= 0) {
+    return res.status(400).json({
+      message: "Transaction amount must be greater than 0.",
     });
   }
 
@@ -78,3 +78,14 @@ export function validateTransaction(req, res, next) {
 
   next();
 }
+
+export function validateTransactionId(req, res, next) {
+  if (typeof req.params.tid !== "number" || !req.params.tid.trim()) {
+    return res.status(400).json({
+      message: "Transaction id is invalid.",
+    });
+  }
+
+  next();
+}
+

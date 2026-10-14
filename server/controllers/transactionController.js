@@ -3,13 +3,6 @@ import db from "../config/db.js";
 export async function getTransactions(req, res) {
   try {
     const uid = req.session?.userId;
-
-    if (!uid) {
-      return res.status(401).json({
-        error: "You must be logged in.",
-      });
-    }
-
     const [transactions] = await db.execute(
       `select * from transactions where uid = ? order by date desc`,
       [uid],
@@ -30,13 +23,6 @@ export async function getTransactions(req, res) {
 export async function addTransaction(req, res) {
   try {
     const uid = req.session?.userId;
-
-    if (!uid) {
-      return res.status(401).json({
-        error: "You must be logged in.",
-      });
-    }
-
     const { name, date, amount, type, category } = req.body;
 
     // TODO: Check values to make sure they are ok before inserting into database
@@ -62,11 +48,6 @@ export async function addTransaction(req, res) {
 export async function updateTransaction(req, res) {
   try {
     const uid = req.session?.userId;
-    if (!uid) {
-      return res.status(401).json({
-        error: "Unable to get user",
-      });
-    }
     const tid = req.params.tid;
     const { name, date, amount, type, category } = req.body;
     const [result] = await db.execute(
@@ -92,11 +73,6 @@ export async function updateTransaction(req, res) {
 export async function deleteTransaction(req, res) {
   try {
     const uid = req.session?.userId;
-    if (!uid) {
-      return res.status(401).json({
-        error: "Unable to get user",
-      });
-    }
     const tid = req.params.tid;
     const [result] = await db.execute(
       `delete from transactions where tid=? and uid=?`,
@@ -117,5 +93,3 @@ export async function deleteTransaction(req, res) {
     });
   }
 }
-
-
