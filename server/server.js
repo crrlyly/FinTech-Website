@@ -12,6 +12,8 @@ import goalRoutes from "./routes/goalRoutes.js";
 
 import { startMonthlyBudgetScheduler } from "./jobs/monthlyBudgetJob.js";
 
+import { errorHandler } from "./middleware/errorHandler.js";
+
 dotenv.config({
   path: new URL("./.env", import.meta.url),
 });

@@ -7,4 +7,6 @@ export function errorHandler(err, req, res, next) {
         ? err.message
         : "Something went wrong on the server.",
   });
+
+  // next();
 }
